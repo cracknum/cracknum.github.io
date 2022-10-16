@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cracknum.github.io/wiki/hello-world/</loc>
+    
+    <lastmod>2022-10-16T12:20:43.592Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://cracknum.github.io/categories/index.html</loc>
+    
+    <lastmod>2022-10-16T12:19:26.923Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://cracknum.github.io/categories/index-1.html</loc>
+    
+    <lastmod>2022-10-16T12:17:58.753Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cracknum.github.io/tags/index.html</loc>
     
     <lastmod>2022-10-16T11:17:50.581Z</lastmod>
@@ -9,23 +30,9 @@
   </url>
   
   <url>
-    <loc>https://cracknum.github.io/categories/index.html</loc>
-    
-    <lastmod>2022-10-16T11:17:50.570Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://cracknum.github.io/about/index.html</loc>
     
     <lastmod>2022-10-16T11:17:50.547Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cracknum.github.io/2022/10/16/hello-world/</loc>
-    
-    <lastmod>2022-10-16T11:12:28.509Z</lastmod>
     
   </url>
   
