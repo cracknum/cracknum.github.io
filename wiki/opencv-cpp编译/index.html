@@ -3,19 +3,26 @@
 <head>
     <meta charset="utf-8">
     
-    <title>记录</title>
+    <title>opencv_cpp编译 | 记录</title>
     
     
-        <meta name="keywords" content="记录">
+        <meta name="keywords" content="opencv_cpp编译">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta property="og:type" content="website">
-<meta property="og:title" content="记录">
-<meta property="og:url" content="https://cracknum.github.io/index.html">
+    <meta name="description" content="1. 环境  操作系统: Windows11 21H2 CMake-gui: 3.24.2 (不要使用3.25.0-rc2，在configure过车中会出现类型大小检查错误) OpenCV: 4.6.0  2. 编译过程 3.1 CMake使用流程  选择源码目录 选择编译存储目录 configure generate   3.2 使用CMake-gui-3.25.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="opencv_cpp编译">
+<meta property="og:url" content="https://cracknum.github.io/wiki/opencv-cpp%E7%BC%96%E8%AF%91/index.html">
 <meta property="og:site_name" content="记录">
+<meta property="og:description" content="1. 环境  操作系统: Windows11 21H2 CMake-gui: 3.24.2 (不要使用3.25.0-rc2，在configure过车中会出现类型大小检查错误) OpenCV: 4.6.0  2. 编译过程 3.1 CMake使用流程  选择源码目录 选择编译存储目录 configure generate   3.2 使用CMake-gui-3.25.">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cracknum.github.io/wiki/opencv-cpp%E7%BC%96%E8%AF%91/2022-10-20-20-32-38.png">
+<meta property="og:image" content="https://cracknum.github.io/wiki/opencv-cpp%E7%BC%96%E8%AF%91/2022-10-20-21-47-33.png">
+<meta property="article:published_time" content="2022-10-20T12:17:41.000Z">
+<meta property="article:modified_time" content="2022-10-20T14:12:54.327Z">
 <meta property="article:author" content="Lei Zhao">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cracknum.github.io/wiki/opencv-cpp%E7%BC%96%E8%AF%91/2022-10-20-20-32-38.png">
     
 
     
@@ -172,13 +179,13 @@
         
         
          <ul class="unstyled" id="tree"> 
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             OpenCV
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/opencv-cpp%E7%BC%96%E8%AF%91/">opencv_cpp编译</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/opencv-cpp%E7%BC%96%E8%AF%91/">opencv_cpp编译</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -260,8 +267,7 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main">
-        <article id="post-opencv-cpp编译" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-opencv-cpp编译" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -293,8 +299,8 @@
                 
                 
     
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/opencv-cpp%E7%BC%96%E8%AF%91/">opencv_cpp编译</a>
+        <h1 class="article-title" itemprop="name">
+            opencv_cpp编译
         </h1>
     
 
@@ -305,38 +311,75 @@
         
         
             
-                
-                
-                    
-                    
-                
-                    
-                    
-                
-                    
-                    
-                
-                    
-                    
-                
-                    
-                    
-                
-                
-                    
-                    <p></p><h2 id="环境">1. 环境</h2>
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">1. 环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">2. 编译过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#cmake%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="toc-number">2.1.</span> <span class="toc-text">3.1 CMake使用流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8cmake-gui-3.25.0-rc2%E5%87%BA%E7%8E%B0%E7%9A%84%E9%94%99%E8%AF%AF"><span class="toc-number">3.</span> <span class="toc-text">3.2
+使用CMake-gui-3.25.0-rc2出现的错误</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8vs%E7%BC%96%E8%AF%91cmake%E7%94%9F%E6%88%90%E7%9A%84%E7%9B%AE%E5%BD%95%E6%96%87%E4%BB%B6"><span class="toc-number">3.1.</span> <span class="toc-text">3.3
+使用VS编译CMake生成的目录文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8vs2022%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B%E4%B8%AD%E5%87%BA%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">3.2.</span> <span class="toc-text">3.4
+在VS2022编译过程中出现的问题</span></a></li></ol></li></ol>
+                </div>
+            
+        
+        
+            <h2 id="环境">1. 环境</h2>
 <blockquote>
 <p><strong>操作系统</strong>: Windows11 21H2<br>
 <strong>CMake-gui</strong>: 3.24.2
 <font color="#f391a9">(不要使用3.25.0-rc2，在configure过车中会出现类型大小检查错误)</font><br>
-</p><p>
-                
-            
-        
-        
-            </p></blockquote></div>   
-            <div class="article-more-link">
-                <a href="/wiki/opencv-cpp%E7%BC%96%E8%AF%91/#more">查看更多</a>
+<strong>OpenCV</strong>: 4.6.0</p>
+</blockquote>
+<h2 id="编译过程">2. 编译过程</h2>
+<h3 id="cmake使用流程">3.1 CMake使用流程</h3>
+<ol type="1">
+<li>选择源码目录</li>
+<li>选择编译存储目录</li>
+<li>configure</li>
+<li>generate <img src="2022-10-20-20-32-38.png"></li>
+</ol>
+<h2 id="使用cmake-gui-3.25.0-rc2出现的错误">3.2
+使用CMake-gui-3.25.0-rc2出现的错误</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Check size of size_t</span><br><span class="line">CMake Error at C:/Users/赵磊/Downloads/cmake-3.25.0-rc2-windows-x86_64/share/cmake-3.25/Modules/CheckTypeSize.cmake:147 (try_compile):</span><br><span class="line">  Cannot copy output executable</span><br><span class="line"></span><br><span class="line">    &#x27;&#x27;</span><br><span class="line"></span><br><span class="line">  to destination specified by COPY_FILE:</span><br><span class="line"></span><br><span class="line">    &#x27;E:/opencv/tmp/CMakeFiles/CheckTypeSize/SIZEOF_SIZE_T.bin&#x27;</span><br><span class="line"></span><br><span class="line">  Recorded try_compile output location doesn&#x27;t exist:</span><br><span class="line"></span><br><span class="line">    E:/opencv/tmp/CMakeFiles/CMakeScratch/TryCompile-one8tx/Debug/cmTC_66609.exe</span><br><span class="line"></span><br><span class="line">Call Stack (most recent call first):</span><br><span class="line">  C:/Users/赵磊/Downloads/cmake-3.25.0-rc2-windows-x86_64/share/cmake-3.25/Modules/CheckTypeSize.cmake:277 (__check_type_size_impl)</span><br><span class="line">  3rdparty/libjpeg-turbo/CMakeLists.txt:25 (check_type_size)</span><br></pre></td></tr></table></figure>
+<h3 id="使用vs编译cmake生成的目录文件">3.3
+使用VS编译CMake生成的目录文件</h3>
+<ol type="1">
+<li><p>编译OpenCV项目（在ALL_BUILD右键生成）</p></li>
+<li><p>生成安装文件（include, bin, lib，在INSTALL处右键生成）</p></li>
+</ol>
+<p><img src="2022-10-20-21-47-33.png"></p>
+<ol start="3" type="1">
+<li>完成上述步骤后，在build目录下就会出现install目录，在其中的一些目录就包含了include和x64(bin,
+lib)</li>
+</ol>
+<h3 id="在vs2022编译过程中出现的问题">3.4
+在VS2022编译过程中出现的问题</h3>
+<blockquote>
+<p>严重性 代码 说明 项目 文件 行 禁止显示状态 错误 C2059 语法错误:“)”
+opencv_test_objdetect D:-4.x_qrcode_encode.cpp 324 警告 C4819
+该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode
+格式以防止数据丢失 opencv_test_objdetect D:-4.x_qrcode_encode.cpp
+1<br>
+错误 C2059 语法错误:“for” opencv_test_objdetect D:-4.x_qrcode_encode.cpp
+324 错误 C2143 语法错误: 缺少“)”(在“;”的前面) opencv_test_objdetect
+D:-4.x_qrcode_encode.cpp 324 错误 C2065 “i”: 未声明的标识符
+opencv_test_objdetect D:-4.x_qrcode_encode.cpp 324 错误 C2065 “i”:
+未声明的标识符 opencv_test_objdetect D:-4.x_qrcode_encode.cpp 324 错误
+C2275 “std::string”: 将此类型用作表达式非法 opencv_test_objdetect
+D:-4.x_qrcode_encode.cpp 326 错误 C2146 语法错误:
+缺少“)”(在标识符“input_info”的前面) opencv_test_objdetect
+D:-4.x_qrcode_encode.cpp 326 错误 C2065 “input_info”: 未声明的标识符
+opencv_test_objdetect D:-4.x_qrcode_encode.cpp 328 错误 C2065
+“input_info”: 未声明的标识符 opencv_test_objdetect
+D:-4.x_qrcode_encode.cpp 350 错误 C2737 “gtest_ar”: 必须初始化 const
+对象 opencv_test_objdetect D:-4.x_qrcode_encode.cpp 350 错误 C2059
+语法错误:“}” opencv_test_objdetect D:-4.x_qrcode_encode.cpp 435 错误
+C2143 语法错误: 缺少“;”(在“}”的前面) opencv_test_objdetect
+D:-4.x_qrcode_encode.cpp 435</p>
+</blockquote>
+<ul>
+<li>解决方案参考<a target="_blank" rel="external nofollow noopener noreferrer" href="https://blog.csdn.net/pypyquixue/article/details/123448814">vs2022重新编译opencv-python
+cuda加速时报错</a></li>
+</ul>
+
             </div>
         
         <footer class="article-footer">
@@ -345,99 +388,31 @@
 </article>
 
 
-
-
-
-
     
-        <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/test/">test</a>
-    </div>
-
-                        
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/hello-world/">
-            <time datetime="2022-10-16T11:12:28.509Z" itemprop="datePublished">2022-10-16</time>
+<nav id="article-nav">
+    
+    
+        <a href="/wiki/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Hello World</div>
         </a>
-    </div>
-
-
-                        
-                            <i class="fa fa-bar-chart"></i>
-                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
-                        
-                        
-                    </div>
-                
-                
     
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/hello-world/">Hello World</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                
-                    
-                    
-                
-                    
-                    
-                
-                    
-                    
-                
-                    
-                    
-                
-                    
-                    
-                
-                
-                    
-                    <p></p><p>Welcome to <a target="_blank" rel="external nofollow noopener noreferrer" href="https://hexo.io/">Hexo</a>! This is your very
-first post. Check <a target="_blank" rel="external nofollow noopener noreferrer" href="https://hexo.io/docs/">documentation</a> for
-more info. If you get any problems when using Hexo, you can find the
-answer in <a target="_blank" rel="external nofollow noopener noreferrer" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
-</p><p>
-                
-            
-        
-        
-            </p></div>   
-            <div class="article-more-link">
-                <a href="/wiki/hello-world/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
+</nav>
 
 
 
 
 
     
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
 </section>
         </div>
         <footer id="footer">
