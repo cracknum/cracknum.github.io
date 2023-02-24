@@ -9,20 +9,22 @@
         <meta name="keywords" content="OpenCV C++">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="1. Mat的遍历 Mat应该被视作为一个矩阵，三维的图像用表格形象化可以表示为  每一个Col表示一个像素值 ### 1.1 连续空间遍历 连续空间指的是row1后面接的就是row2，也就是信息在内存中是连续存储的，拉直后可以表示为  这样我们就可以像遍历一维空间一样对Mat进行遍历 12345678910&#x2F;&#x2F; elemSize在三维图像中就是3（BGR）int elemSize &#x3D;">
+    <meta name="description" content="1. Mat的遍历 Mat应该被视作为一个矩阵，三维的图像用表格形象化可以表示为  每一个Col表示一个像素值 1.1 连续空间遍历 连续空间指的是row1后面接的就是row2，也就是信息在内存中是连续存储的，拉直后可以表示为  这样我们就可以像遍历一维空间一样对Mat进行遍历 12345678910&#x2F;&#x2F; elemSize在三维图像中就是3（BGR）int elemSize &#x3D; mat">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mat遍历以及OpenGL的Widget的使用demo">
 <meta property="og:url" content="https://cracknum.github.io/wiki/Mat%E9%81%8D%E5%8E%86%E4%BB%A5%E5%8F%8AOpenGL%E7%9A%84Widget%E7%9A%84%E4%BD%BF%E7%94%A8demo/index.html">
 <meta property="og:site_name" content="记录">
-<meta property="og:description" content="1. Mat的遍历 Mat应该被视作为一个矩阵，三维的图像用表格形象化可以表示为  每一个Col表示一个像素值 ### 1.1 连续空间遍历 连续空间指的是row1后面接的就是row2，也就是信息在内存中是连续存储的，拉直后可以表示为  这样我们就可以像遍历一维空间一样对Mat进行遍历 12345678910&#x2F;&#x2F; elemSize在三维图像中就是3（BGR）int elemSize &#x3D;">
+<meta property="og:description" content="1. Mat的遍历 Mat应该被视作为一个矩阵，三维的图像用表格形象化可以表示为  每一个Col表示一个像素值 1.1 连续空间遍历 连续空间指的是row1后面接的就是row2，也就是信息在内存中是连续存储的，拉直后可以表示为  这样我们就可以像遍历一维空间一样对Mat进行遍历 12345678910&#x2F;&#x2F; elemSize在三维图像中就是3（BGR）int elemSize &#x3D; mat">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cracknum.github.io/wiki/Mat%E9%81%8D%E5%8E%86%E4%BB%A5%E5%8F%8AOpenGL%E7%9A%84Widget%E7%9A%84%E4%BD%BF%E7%94%A8demo/2022-10-23-15-51-58.png">
 <meta property="og:image" content="https://cracknum.github.io/wiki/Mat%E9%81%8D%E5%8E%86%E4%BB%A5%E5%8F%8AOpenGL%E7%9A%84Widget%E7%9A%84%E4%BD%BF%E7%94%A8demo/2022-10-23-15-55-44.png">
+<meta property="og:image" content="https://cracknum.github.io/wiki/Mat%E9%81%8D%E5%8E%86%E4%BB%A5%E5%8F%8AOpenGL%E7%9A%84Widget%E7%9A%84%E4%BD%BF%E7%94%A8demo/2022-10-23-16-22-48.png">
 <meta property="article:published_time" content="2022-10-23T07:43:38.000Z">
-<meta property="article:modified_time" content="2022-10-23T08:30:16.247Z">
+<meta property="article:modified_time" content="2023-02-24T01:25:10.596Z">
 <meta property="article:author" content="Lei Zhao">
 <meta property="article:tag" content="OpenCV C++">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cracknum.github.io/wiki/Mat%E9%81%8D%E5%8E%86%E4%BB%A5%E5%8F%8AOpenGL%E7%9A%84Widget%E7%9A%84%E4%BD%BF%E7%94%A8demo/2022-10-23-15-55-44.png">
+<meta name="twitter:image" content="https://cracknum.github.io/wiki/Mat%E9%81%8D%E5%8E%86%E4%BB%A5%E5%8F%8AOpenGL%E7%9A%84Widget%E7%9A%84%E4%BD%BF%E7%94%A8demo/2022-10-23-15-51-58.png">
     
 
     
@@ -185,16 +187,7 @@
                             &nbsp;
                             OpenCV
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/opencv-cpp%E7%BC%96%E8%AF%91/">opencv_cpp编译</a></li>  <li class="file"><a href="/wiki/hello-world-OpenCV/">hello_world_OpenCV</a></li>  <li class="file active"><a href="/wiki/Mat%E9%81%8D%E5%8E%86%E4%BB%A5%E5%8F%8AOpenGL%E7%9A%84Widget%E7%9A%84%E4%BD%BF%E7%94%A8demo/">Mat遍历以及OpenGL的Widget的使用demo</a></li>  </ul> 
-                    </li> 
-                    
-                    <li class="directory">
-                        <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
-                            &nbsp;
-                            test
-                        </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/hello-world/">Hello World</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/opencv-cpp%E7%BC%96%E8%AF%91/">opencv_cpp编译</a></li>  <li class="file"><a href="/wiki/hello-world-OpenCV/">hello_world_OpenCV</a></li>  <li class="file active"><a href="/wiki/Mat%E9%81%8D%E5%8E%86%E4%BB%A5%E5%8F%8AOpenGL%E7%9A%84Widget%E7%9A%84%E4%BD%BF%E7%94%A8demo/">Mat遍历以及OpenGL的Widget的使用demo</a></li>  <li class="file"><a href="/wiki/OpenCV%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">OpenCV图像处理</a></li>  <li class="file"><a href="/wiki/OpenCV%E5%9B%BE%E5%83%8F%E7%BC%A9%E6%94%BE/">OpenCV图像缩放</a></li>  </ul> 
                     </li> 
                      </ul> 
     </div>
@@ -318,16 +311,17 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#mat%E7%9A%84%E9%81%8D%E5%8E%86"><span class="toc-number">1.</span> <span class="toc-text">1. Mat的遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E8%BF%9E%E7%BB%AD%E7%A9%BA%E9%97%B4%E9%81%8D%E5%8E%86"><span class="toc-number">1.1.</span> <span class="toc-text">1.2 不连续空间遍历</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#opengl%E7%9A%84widget%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">2. OPenGL的Widget的使用</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#mat%E7%9A%84%E9%81%8D%E5%8E%86"><span class="toc-number">1.</span> <span class="toc-text">1. Mat的遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E7%BB%AD%E7%A9%BA%E9%97%B4%E9%81%8D%E5%8E%86"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 连续空间遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E8%BF%9E%E7%BB%AD%E7%A9%BA%E9%97%B4%E9%81%8D%E5%8E%86"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 不连续空间遍历</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#opengl%E7%9A%84widget%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">2. OpenGL的Widget的使用</span></a></li></ol>
                 </div>
             
         
         
             <h2 id="mat的遍历">1. Mat的遍历</h2>
-<p>Mat应该被视作为一个矩阵，三维的图像用表格形象化可以表示为 <img src="2022-10-23-15-51-58.png"> 每一个<code>Col</code>表示一个像素值
-### 1.1 连续空间遍历
-连续空间指的是row1后面接的就是row2，也就是信息在内存中是连续存储的，拉直后可以表示为
-<img src="2022-10-23-15-55-44.png"></p>
+<p>Mat应该被视作为一个矩阵，三维的图像用表格形象化可以表示为 <img src="/wiki/Mat%E9%81%8D%E5%8E%86%E4%BB%A5%E5%8F%8AOpenGL%E7%9A%84Widget%E7%9A%84%E4%BD%BF%E7%94%A8demo/2022-10-23-15-51-58.png">
+每一个<code>Col</code>表示一个像素值</p>
+<h3 id="连续空间遍历">1.1 连续空间遍历</h3>
+<p>连续空间指的是row1后面接的就是row2，也就是信息在内存中是连续存储的，拉直后可以表示为
+<img src="/wiki/Mat%E9%81%8D%E5%8E%86%E4%BB%A5%E5%8F%8AOpenGL%E7%9A%84Widget%E7%9A%84%E4%BD%BF%E7%94%A8demo/2022-10-23-15-55-44.png"></p>
 <p>这样我们就可以像遍历一维空间一样对Mat进行遍历 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// elemSize在三维图像中就是3（BGR）</span></span><br><span class="line"><span class="type">int</span> elemSize = mat.<span class="built_in">elemSize</span>();</span><br><span class="line"><span class="comment">// 一维数组的总大小</span></span><br><span class="line"><span class="type">int</span> size = mat.rows * mat.cols * elemSize;</span><br><span class="line"><span class="comment">//遍历Mat中的所有元素并将其值赋为整数随机数(0~255)</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; i+= elemSize) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; elemSize; j++) &#123;</span><br><span class="line">        mat.data[i+j] = <span class="built_in">rand</span>() % <span class="number">255</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="不连续空间遍历">1.2 不连续空间遍历</h3>
 <p>但是Mat中也可能会出现row的不连续，也就是在row中是连续存储的而多个row是不连续的，这种遍历就无法使用连续的遍历方式进行。</p>
@@ -343,7 +337,7 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> row = <span class="number">0</span>; row &lt; mat.rows; ++row) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> col = <span class="number">0</span>; col &lt; mat.cols; ++col) &#123;</span><br><span class="line">            mat.<span class="built_in">at</span>&lt;Vec3b&gt;(row, col)[<span class="number">0</span>] = <span class="built_in">rand</span>() % <span class="number">255</span>;</span><br><span class="line">            mat.<span class="built_in">at</span>&lt;Vec3b&gt;(row, col)[<span class="number">1</span>] = <span class="built_in">rand</span>() % <span class="number">255</span>;</span><br><span class="line">            mat.<span class="built_in">at</span>&lt;Vec3b&gt;(row, col)[<span class="number">2</span>] = <span class="built_in">rand</span>() % <span class="number">255</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure> -
 使用迭代器遍历。迭代器应该是操作Mat最简单的方式，但是它的速度也是最慢的。
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = mat.<span class="built_in">begin</span>&lt;Vec3b&gt;(); it != mat.<span class="built_in">end</span>&lt;Vec3b&gt;(); ++it) &#123;</span><br><span class="line">        (*it)[<span class="number">0</span>] = <span class="built_in">rand</span>() % <span class="number">255</span>;</span><br><span class="line">        (*it)[<span class="number">1</span>] = <span class="built_in">rand</span>() % <span class="number">255</span>;</span><br><span class="line">        (*it)[<span class="number">2</span>] = <span class="built_in">rand</span>() % <span class="number">255</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="opengl的widget的使用">2. OPenGL的Widget的使用</h2>
+<h2 id="opengl的widget的使用">2. OpenGL的Widget的使用</h2>
 <ol start="0" type="1">
 <li>环境设置 &gt; <strong>操作系统</strong>: Windows11 21H2<br>
 &gt; <strong>CMake-gui</strong>: 3.24.2
@@ -355,7 +349,7 @@
 <ol type="1">
 <li>在VS中新建一个类继承<code>QOpenGLWidget</code>,然后创建一个有参构造函数以及重写<code>paintEvent</code>方法，这个方法是在画面刷新时调用的。创建完成后header的文件如下所示
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;qopenglwidget.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MatView</span>: <span class="keyword">public</span> QOpenGLWidget</span><br><span class="line">&#123;</span><br><span class="line">	Q_OBJECT  <span class="comment">// 这里是用于表明这是QT的对象，下面一定要空行</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">MatView</span>(QWidget* parent);</span><br><span class="line">	~<span class="built_in">MatView</span>();</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">paintEvent</span><span class="params">(QPaintEvent* e)</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 然后实现类中的对象 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;MatView.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;opencv2/core.hpp&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;opencv2/imgcodecs.hpp&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;opencv2/imgproc.hpp&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;qpainter.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;qimage.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line">MatView::<span class="built_in">MatView</span>(QWidget* parent):<span class="built_in">QOpenGLWidget</span>(parent)</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">MatView::~<span class="built_in">MatView</span>()</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">MatView::paintEvent</span><span class="params">(QPaintEvent* e)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Mat src = <span class="built_in">imread</span>(<span class="string">&quot;1.png&quot;</span>);</span><br><span class="line">	<span class="built_in">cvtColor</span>(src, src, cv::COLOR_BGR2RGB);</span><br><span class="line">	<span class="function">QImage <span class="title">image</span><span class="params">(src.data, src.cols, src.rows, QImage::Format_RGB888)</span></span>;</span><br><span class="line">	QPainter painter;</span><br><span class="line">	painter.<span class="built_in">begin</span>(<span class="keyword">this</span>);</span><br><span class="line">	painter.<span class="built_in">drawImage</span>(<span class="built_in">QPoint</span>(<span class="number">0</span>,<span class="number">0</span>), image);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 这样我们就可以在QT
-designer中设置OpenGL的Widget为我们实现的类了 <img src="2022-10-23-16-22-48.png"></li>
+designer中设置OpenGL的Widget为我们实现的类了 <img src="/wiki/Mat%E9%81%8D%E5%8E%86%E4%BB%A5%E5%8F%8AOpenGL%E7%9A%84Widget%E7%9A%84%E4%BD%BF%E7%94%A8demo/2022-10-23-16-22-48.png"></li>
 </ol>
 
             </div>
@@ -368,6 +362,15 @@ designer中设置OpenGL的Widget为我们实现的类了 <img src="2022-10-23-16
 
     
 <nav id="article-nav">
+    
+        <a href="/wiki/OpenCV%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    OpenCV图像处理
+                
+            </div>
+        </a>
     
     
         <a href="/wiki/hello-world-OpenCV/" id="article-nav-older" class="article-nav-link-wrap">
@@ -396,7 +399,7 @@ designer中设置OpenGL的Widget为我们实现的类了 <img src="2022-10-23-16
         <footer id="footer">
     <div class="outer">
         <div id="footer-info" class="inner">
-            Lei Zhao &copy; 2022 
+            Lei Zhao &copy; 2023 
             <a rel="external nofollow noopener noreferrer" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
             <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
             

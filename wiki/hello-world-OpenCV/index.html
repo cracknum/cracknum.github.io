@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://cracknum.github.io/wiki/hello-world-OpenCV/2022-10-21-12-02-41.png">
 <meta property="og:image" content="https://cracknum.github.io/wiki/hello-world-OpenCV/2022-10-21-12-03-31.png">
 <meta property="article:published_time" content="2022-10-21T03:43:33.000Z">
-<meta property="article:modified_time" content="2022-10-21T04:07:52.648Z">
+<meta property="article:modified_time" content="2023-02-24T01:24:28.888Z">
 <meta property="article:author" content="Lei Zhao">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cracknum.github.io/wiki/hello-world-OpenCV/2022-10-21-11-57-17.png">
@@ -188,16 +188,7 @@
                             &nbsp;
                             OpenCV
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/opencv-cpp%E7%BC%96%E8%AF%91/">opencv_cpp编译</a></li>  <li class="file active"><a href="/wiki/hello-world-OpenCV/">hello_world_OpenCV</a></li>  <li class="file"><a href="/wiki/Mat%E9%81%8D%E5%8E%86%E4%BB%A5%E5%8F%8AOpenGL%E7%9A%84Widget%E7%9A%84%E4%BD%BF%E7%94%A8demo/">Mat遍历以及OpenGL的Widget的使用demo</a></li>  </ul> 
-                    </li> 
-                    
-                    <li class="directory">
-                        <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
-                            &nbsp;
-                            test
-                        </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/hello-world/">Hello World</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/opencv-cpp%E7%BC%96%E8%AF%91/">opencv_cpp编译</a></li>  <li class="file active"><a href="/wiki/hello-world-OpenCV/">hello_world_OpenCV</a></li>  <li class="file"><a href="/wiki/Mat%E9%81%8D%E5%8E%86%E4%BB%A5%E5%8F%8AOpenGL%E7%9A%84Widget%E7%9A%84%E4%BD%BF%E7%94%A8demo/">Mat遍历以及OpenGL的Widget的使用demo</a></li>  <li class="file"><a href="/wiki/OpenCV%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">OpenCV图像处理</a></li>  <li class="file"><a href="/wiki/OpenCV%E5%9B%BE%E5%83%8F%E7%BC%A9%E6%94%BE/">OpenCV图像缩放</a></li>  </ul> 
                     </li> 
                      </ul> 
     </div>
@@ -335,21 +326,21 @@
 <ol type="1">
 <li>预处理
 在项目结构中的<code>src/include</code>下存放的就是需要的头文件，这就是在预处理阶段需要用到的内容。我们需要在VS2022中设置，如图
-<img src="2022-10-21-11-57-17.png"></li>
+<img src="/wiki/hello-world-OpenCV/2022-10-21-11-57-17.png"></li>
 <li>编译
 在编译过程中我们需要引入OpenCV编译出来的库文件<code>opencv_world460d.lib</code>。在VS2022中的设置，如图</li>
 </ol>
 <ul>
-<li>设置库目录 <img src="2022-10-21-11-59-49.png"></li>
-<li>设置库名称 <img src="2022-10-21-12-00-42.png"></li>
+<li>设置库目录 <img src="/wiki/hello-world-OpenCV/2022-10-21-11-59-49.png"></li>
+<li>设置库名称 <img src="/wiki/hello-world-OpenCV/2022-10-21-12-00-42.png"></li>
 </ul>
 <ol start="3" type="1">
 <li>链接
 整个项目编译过后，我们需要进行链接，在这一步使用的就是dll文件（动态链接库文件）。在VS2022中设置的方式为</li>
 </ol>
 <ul>
-<li>设置输出目录 <img src="2022-10-21-12-02-41.png"></li>
-<li>设置调试的工作目录 <img src="2022-10-21-12-03-31.png">
+<li>设置输出目录 <img src="/wiki/hello-world-OpenCV/2022-10-21-12-02-41.png"></li>
+<li>设置调试的工作目录 <img src="/wiki/hello-world-OpenCV/2022-10-21-12-03-31.png">
 这里我们并没有设置使用哪些dll文件，因为这些dll文件全都要放在编译输出的那个目录下</li>
 </ul>
 <h2 id="测试代码">2. 测试代码</h2>
@@ -402,7 +393,7 @@
         <footer id="footer">
     <div class="outer">
         <div id="footer-info" class="inner">
-            Lei Zhao &copy; 2022 
+            Lei Zhao &copy; 2023 
             <a rel="external nofollow noopener noreferrer" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
             <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
             
