@@ -45,7 +45,7 @@ a {
 	margin: 0 3px;
 }
 #title {
-	font-size: 16px;
+	font-size: 40px;
 	color: #f0f0f0;
 	padding: 5px 15px;
 	display: flex;
@@ -113,6 +113,7 @@ a.active {
 	width: 250px;
 	left: -250px;
 	height: 100%;
+	font-size: 18px;
 	top: 0px;
 	background: #eaebee;
 	z-index: 99;
@@ -209,11 +210,12 @@ a.active {
 }
 /* index */
 #content {
-	max-width: 850px;
+	max-width: 2000px;
 	top: 50px;
 	flex-grow: 1;
 	flex-shrink: 1;
 	flex-basis: 0;
+	font-size: 20px;
 	margin: 80px auto 30px auto;
 }
 
@@ -270,7 +272,7 @@ a.active {
 
 .article-meta * {
 	position: relative;
-	font-size: 12px;
+	font-size: 18px;
 	color: #acabab;
 	padding: 0 5px 0 0;
 }
