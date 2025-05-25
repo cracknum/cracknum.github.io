@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<!-- title -->
+	
+<title>
+    
+        Mitk数据操作和渲染&nbsp;&nbsp;✦&nbsp;
+    
+    技术积累
+</title>
+
+	<!-- keywords,description -->
+	
+
+<meta name="author" content="Lei Zhao" />
+
+<meta name="keywords" content="VTK,MITK,Qt,OpenGL" />
+
+<meta name="description" content="Mitk数据操作和渲染一、数据操作1. BaseRenderermitk::BaseRenderer 是mitk的核心渲染组件，
+
+定义了哪些mapper能够被使用
+  enum StandardMapperSlot&amp;#123;  Standard2D = 1,  Standard3D = 2&amp;#125;;
+
+哪些方向可以被渲染
+  enum class ViewDirection&amp;#123;  " />
+
+	<!-- favicon -->
+	
+		<link rel="shortcut icon" href="/favicon.ico">
+	
+
+	<!-- css, script -->
+	
+<link rel="stylesheet" href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css">
+
+	
+<link rel="stylesheet" href="/css/main.css">
+
+
+	
+<script src="https://cdn.jsdelivr.net/npm/darkreader@4.9.58/darkreader.min.js"></script>
+
+	
+<script src="/js/main.js"></script>
+
+
+	<!-- custom css and js -->
+	
+
+
+
+
+
+	<!-- search -->
+	<script async>
+	window.searchEngine = "https://www.baidu.com/s?wd=" ?? "https://www.google.com/search?q=";
+	window.homeHost = "https://cracknum.github.io" ?? window.location.host;
+</script>
+
+	<!-- statistics -->
+	
+	<script async reload src="https://cn.vercount.one/js"></script>
+
+
+	<!-- analysis -->
+	
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+	<header id="header">
+	<a id="title" href="/" class="logo">
+		<img id="logo" src="/favicon-white.ico" alt="logo"/>
+		技术积累
+	</a>
+
+	<ul id="menu">
+		
+			<li class="menu-item">
+				<a href="/about" class="menu-item-link">关于</a>
+			</li>
+		
+		
+			<li class="menu-item">
+				<a href="/tags" class="menu-item-link">标签</a>
+			</li>
+		
+		
+			<li class="menu-item">
+				<a href="/categories" class="menu-item-link">分类</a>
+			</li>
+		
+		
+			<li class="menu-item">
+				<a href="" class="menu-item-link item-icon" target="_blank">
+					<i class="fa fa-github fa-2x"></i>
+				</a>
+			</li>
+		
+		
+			<li class="menu-item dark-mode">
+				<a href="#" class="menu-item-link item-icon">
+					<i class="fa fa-moon-o fa-2x"></i>
+				</a>
+			</li>
+
+			<script async>
+				const localModel = localStorage.getItem("darkModel");
+				const darkModel = !localModel ? 0 : localModel;
+
+				const darkModeIcon = document.querySelector("#menu .dark-mode i");
+
+				if (darkModel == 1) {
+					darkModeIcon.classList.replace("fa-moon-o", "fa-sun-o");
+					DarkReader.enable({
+						brightness: 100,
+						contrast: 90,
+						sepia: 10,
+					});
+				}
+
+				darkModeIcon.addEventListener("click", () => {
+					const isMoon = darkModeIcon.classList.contains("fa-moon-o");
+					darkModeIcon.classList.toggle("fa-moon-o", !isMoon);
+					darkModeIcon.classList.toggle("fa-sun-o", isMoon);
+					localStorage.setItem("darkModel", isMoon ? 1 : 0);
+					isMoon ? DarkReader.enable({ brightness: 100, contrast: 90, sepia: 10 }) : DarkReader.disable();
+				});
+			</script>
+		
+	</ul>
+</header>
+
+<script async>
+	let startHeight = 0;
+	window.addEventListener("scroll", () => {
+		const { scrollY: endHeight } = window;
+		const distance = endHeight - startHeight;
+		startHeight = endHeight;
+		document.querySelector("#header").style.display = distance > 0 && endHeight > 50 ? "none" : "";
+	});
+</script>
+	<div id="sidebar">
+	<button id="sidebar-toggle" class="toggle" ><i class="fa fa-arrow-right " aria-hidden="true"></i></button>
+	<div id="site-toc">
+		<input id="search-input" class="search-input" type="search" placeholder="按回车全站搜索">
+		<div id="tree">
+			
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="VTK" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											VTK
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2025/05/25/VTK/test/" title="/2025/05/25/VTK/test">
+									
+										test
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="Computational Geometry" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											Computational Geometry
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2025/05/25/Computational%20Geometry/Convex%20Hull/" title="/2025/05/25/Computational Geometry/Convex Hull">
+									
+										Convex Hull
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="Others" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											Others
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2025/05/25/Others/hexo%20math%20renderer/" title="/2025/05/25/Others/hexo math renderer">
+									
+										hexo math renderer
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="MITK" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											MITK
+										</a>
+			
+									
+							<ul>
+								<li class="file active">
+									<a href="/2025/05/25/MITK/Mitk%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C%E5%92%8C%E6%B8%B2%E6%9F%93/" title="/2025/05/25/MITK/Mitk数据操作和渲染">
+									
+										Mitk数据操作和渲染
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+		</div>
+	</div>
+</div>
+
+	<div id="content">
+		<h1 id="article-title">
+	Mitk数据操作和渲染
+</h1>
+
+<div class="article-meta">
+	<span> Lei Zhao </span>
+	<span> 2025-05-25 18:30:32 </span>
+	<div id="article-categories">
+		
+			<span>Categories：</span>
+			
+		
+		
+			<span>Tags：</span>
+			
+		
+	</div>
+</div>
+
+<div id="article-content">
+	<h1 id="Mitk数据操作和渲染"><a href="#Mitk数据操作和渲染" class="headerlink" title="Mitk数据操作和渲染"></a>Mitk数据操作和渲染</h1><h1 id="一、数据操作"><a href="#一、数据操作" class="headerlink" title="一、数据操作"></a>一、数据操作</h1><h2 id="1-BaseRenderer"><a href="#1-BaseRenderer" class="headerlink" title="1. BaseRenderer"></a>1. BaseRenderer</h2><p><code>mitk::BaseRenderer</code> 是mitk的核心渲染组件，</p>
+<ul>
+<li><p>定义了哪些mapper能够被使用</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">StandardMapperSlot</span></span><br><span class="line">&#123;</span><br><span class="line">  Standard2D = <span class="number">1</span>,</span><br><span class="line">  Standard3D = <span class="number">2</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>哪些方向可以被渲染</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum class</span> <span class="title class_">ViewDirection</span></span><br><span class="line">&#123;</span><br><span class="line">  AXIAL = <span class="number">0</span>,</span><br><span class="line">  SAGITTAL,</span><br><span class="line">  CORONAL,</span><br><span class="line">  THREE_D</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>所有创建出来的renderer都会被存储到静态变量中，可以直接通过静态方法获取</p>
+</li>
+</ul>
+<p>mitk::BaseRenderer中还存储了当前窗口渲染数据时的几何信息，这些信息是后续做数据操作的重要依据，包括缩放、旋转和平移。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">itkGetConstObjectMacro</span>(WorldTimeGeometry, TimeGeometry);</span><br><span class="line"><span class="built_in">itkGetConstObjectMacro</span>(CurrentWorldGeometry, BaseGeometry);</span><br><span class="line"><span class="built_in">itkGetConstObjectMacro</span>(CurrentWorldPlaneGeometry, PlaneGeometry);</span><br></pre></td></tr></table></figure>
+<p>几何信息包括WorldTimeGeometry、CurrentWorldGeometry、CurrentWorldPlaneGeometry</p>
+<p><img src="Mitk渲染类图.png" alt=""></p>
+<h2 id="2-TimeGeometry"><a href="#2-TimeGeometry" class="headerlink" title="2. TimeGeometry"></a>2. TimeGeometry</h2><ul>
+<li>TimeGeometry中存在着两个重要概念：<code>TimePoint</code>和<code>TimeStep</code> ，其中TimePoint表示在实际扫描过程中从开始已经过去的时间，TimeStep表示在这些TimePoint中的位置。比如在CT扫描过程中每隔300ms扫描一次，那么TimePoint就会是[0, 300, 600 ,900, …]的时间序列，而TimeStep就是这个序列的索引，比如TimeStep=0时，TimePoint=0, TimeStep=1是TimePoint为300ms.</li>
+<li>ArbitraryTimeGeometry和ProportionalTimeGeometry 则分别表示了扫描间隔不固定以及扫描间隔固定的两种TimeGeometry。</li>
+<li>需要注意的是在扫描骨头时几乎是用不到这些概念的，因为骨头扫描是静态的无法变化的，多次扫描和单次扫描是相同的效果。对于一些重要的器官扫描比如心脏，是需要多次扫描通过动态信息确定一些疾病的</li>
+<li>但是在MITK中为了处理多种数据，所以存在这种数据结构定义</li>
+</ul>
+<h2 id="3-BaseGeometry"><a href="#3-BaseGeometry" class="headerlink" title="3. BaseGeometry"></a>3. BaseGeometry</h2><ul>
+<li>BaseGeometry是TimeGeometry中每个TimeStep对应的一个数据结构，即在特定时间点的扫描数据的几何信息。</li>
+</ul>
+<h2 id="4-SliceNavigationController"><a href="#4-SliceNavigationController" class="headerlink" title="4. SliceNavigationController"></a>4. SliceNavigationController</h2><ul>
+<li>SliceNavigationController是TimeGeometry和SlicedGeometry3D及其对应的子类的主要操作类，用于实际控制数据切片、PlaneGeometry的方向以及通知观察者数据变化信息</li>
+<li>所有的Slice的平移、旋转、缩放都应该通过SliceNavigationController来进行完成，这些操作会通过SliceNavigationController来改变对应TimePoint的SlicedGeometry3D并且影响对应的PlaneGeometry。</li>
+</ul>
+<p><img src="MitkSliceNavigation类图.png" alt=""></p>
+<ul>
+<li>所有的PlaneGeometry的旋转、平移、缩放都是通过BaseGeometry完成的，但是这个过程并不是直接的，而是BaseGeometry将变换矩阵存储到了自身的变量m_GeometryTransform中，也就是所有的平面变换信息都会在m_GeometryTransform中进行处理，并在后续的过程中给出一致性的状态信息，例如spacing、offset、transform等等。如果不通过上述方式而旋转手动设置PlaneGeometry的Origin或者旋转PlaneGeometry会在下次动作时被SliceNavigationController自动修复</li>
+</ul>
+<h1 id="二、数据渲染"><a href="#二、数据渲染" class="headerlink" title="二、数据渲染"></a>二、数据渲染</h1><p>在Mitk中数据的渲染过程由mitk::RenderingManager、mitk渲染系统以及vtk的渲染系统组成</p>
+<p><img src="Mitk数据渲染类图.png" alt=""></p>
+<h2 id="1-RenderingManager"><a href="#1-RenderingManager" class="headerlink" title="1. RenderingManager"></a>1. RenderingManager</h2><p>在mitk中RenderingManager是整个渲染的入口，与vtk不同的是mitk会拦截所有的Qt鼠标事件，然后构建自己的交互系统而不是使用vtkInteractor去控制渲染过程，在MITK2022.10版本中RenderingManager已经变成了单例了，无法手动创建。当需要更新时需要用户手动调用RenderingManager的相关Update方法触发更新，更新分为RequestUpdate和ForceImmediateUpdateAll，RequestUpdate会产生请求更新事件，然后通过检查窗口是否有更新请求来决定更新哪些窗口，而ForceImmediateUpdate方法会立即更新指定窗口，所以尽量使用RequestUpdate方法。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="type">void</span> <span class="title">RenderingManager::RequestUpdate</span><span class="params">(vtkRenderWindow *renderWindow)</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    m_RenderWindowList[renderWindow] = RENDERING_REQUESTED;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!m_UpdatePending)</span><br><span class="line">    &#123;</span><br><span class="line">      m_UpdatePending = <span class="literal">true</span>;</span><br><span class="line">      <span class="keyword">this</span>-&gt;<span class="built_in">GenerateRenderingRequestEvent</span>();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">QmitkRenderingManager::GenerateRenderingRequestEvent</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  QApplication::<span class="built_in">postEvent</span>(<span class="keyword">this</span>, <span class="keyword">new</span> QmitkRenderingRequestEvent);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">QmitkRenderingManager::event</span><span class="params">(QEvent *event)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (event-&gt;<span class="built_in">type</span>() == (QEvent::Type)QmitkRenderingRequestEvent::RenderingRequest)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// Directly process all pending rendering requests</span></span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">ExecutePendingRequests</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">RenderingManager::ExecutePendingRequests</span><span class="params">()</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    m_UpdatePending = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Satisfy all pending update requests</span></span><br><span class="line">    RenderWindowList::const_iterator it;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (it = m_RenderWindowList.<span class="built_in">cbegin</span>(); it != m_RenderWindowList.<span class="built_in">cend</span>(); ++it, ++i)</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span> (it-&gt;second == RENDERING_REQUESTED)</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;<span class="built_in">ForceImmediateUpdate</span>(it-&gt;first);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">RenderingManager::ForceImmediateUpdate</span><span class="params">(vtkRenderWindow *renderWindow)</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (m_RenderWindowList.<span class="built_in">find</span>(renderWindow) == m_RenderWindowList.<span class="built_in">cend</span>())</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    m_RenderWindowList[renderWindow] = RENDERING_INACTIVE;</span><br><span class="line"></span><br><span class="line">    m_UpdatePending = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> *size = renderWindow-&gt;<span class="built_in">GetSize</span>();</span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span> != size[<span class="number">0</span>] &amp;&amp; <span class="number">0</span> != size[<span class="number">1</span>])</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">auto</span> *vPR = <span class="built_in">dynamic_cast</span>&lt;VtkPropRenderer *&gt;(BaseRenderer::<span class="built_in">GetInstance</span>(renderWindow));</span><br><span class="line">      <span class="keyword">if</span> (vPR)</span><br><span class="line">        vPR-&gt;<span class="built_in">PrepareRender</span>();</span><br><span class="line">			<span class="comment">// 这里已经到vtk的渲染系统了</span></span><br><span class="line">      renderWindow-&gt;<span class="built_in">Render</span>();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-VtkPropRenderer"><a href="#2-VtkPropRenderer" class="headerlink" title="2. VtkPropRenderer"></a>2. VtkPropRenderer</h2><p>VtkPropRenderer是用于承接用户设置，并将这些设置进行解析，然后将其设置到vtk的相关属性中的一个类。</p>
+<p>首先VtkPropRenderer所做的事情就是解析在DataStorage中存储的所有DataNode中设置的属性，将其更新到对应的vtk渲染属性中，在mitk中用于解析属性设置并生成vtk渲染对象的类为VtkMapper的子类，VtkMapper的输出就是一个vtkProp对象也就是vtk渲染所需要的数据</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> mitk::VtkPropRenderer::<span class="built_in">Render</span>(mitk::VtkPropRenderer::RenderType type)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span> (type == VtkPropRenderer::Opaque)</span><br><span class="line">  &#123;</span><br><span class="line">		<span class="comment">// 准备渲染队列，</span></span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">PrepareMapperQueue</span>();</span><br><span class="line">    <span class="comment">// 执行渲染</span></span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">PropagateRenderInfoToMappers</span>();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// go through the generated list and let the sorted mappers paint</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">auto</span> it = m_MappersMap.<span class="built_in">cbegin</span>(); it != m_MappersMap.<span class="built_in">cend</span>(); it++)</span><br><span class="line">  &#123;</span><br><span class="line">    Mapper *mapper = (*it).second;</span><br><span class="line">    mapper-&gt;<span class="built_in">MitkRender</span>(<span class="keyword">this</span>, type);</span><br><span class="line">  &#125;</span><br><span class="line">...</span><br><span class="line">  <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//=================================准备渲染队列=================================================================</span></span><br><span class="line"><span class="type">void</span> mitk::VtkPropRenderer::<span class="built_in">PrepareMapperQueue</span>()</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// Do we have to update the mappers ?</span></span><br><span class="line">  <span class="keyword">if</span> (m_LastUpdateTime &lt; <span class="built_in">GetMTime</span>() || m_LastUpdateTime &lt; <span class="keyword">this</span>-&gt;<span class="built_in">GetCurrentWorldPlaneGeometry</span>()-&gt;<span class="built_in">GetMTime</span>())</span><br><span class="line">  &#123;</span><br><span class="line">		<span class="comment">// 遍历所有的数据节点然后调用Update(mitk::DataNode *datatreenode)</span></span><br><span class="line">    <span class="built_in">Update</span>();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (m_MapperID &gt;= <span class="number">1</span> &amp;&amp; m_MapperID &lt; <span class="number">6</span>)</span><br><span class="line">    <span class="built_in">Update</span>();</span><br><span class="line"></span><br><span class="line">  DataStorage::SetOfObjects::ConstPointer allObjects = m_DataStorage-&gt;<span class="built_in">GetAll</span>();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (DataStorage::SetOfObjects::ConstIterator it = allObjects-&gt;<span class="built_in">Begin</span>(); it != allObjects-&gt;<span class="built_in">End</span>(); ++it)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="type">const</span> DataNode::Pointer node = it-&gt;<span class="built_in">Value</span>();</span><br><span class="line">    <span class="keyword">if</span> (node.<span class="built_in">IsNull</span>())</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    <span class="type">const</span> mitk::Mapper::Pointer mapper = node-&gt;<span class="built_in">GetMapper</span>(m_MapperID);</span><br><span class="line"></span><br><span class="line">    <span class="type">bool</span> visible = <span class="literal">true</span>;</span><br><span class="line">    node-&gt;<span class="built_in">GetVisibility</span>(visible, <span class="keyword">this</span>, <span class="string">&quot;visible&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> layer = <span class="number">1</span>;</span><br><span class="line">    node-&gt;<span class="built_in">GetIntProperty</span>(<span class="string">&quot;layer&quot;</span>, layer, <span class="keyword">this</span>);</span><br><span class="line">    <span class="type">int</span> nr = (layer &lt;&lt; <span class="number">16</span>) + mapperNo;</span><br><span class="line">    m_MappersMap.<span class="built_in">insert</span>(std::<span class="built_in">pair</span>&lt;<span class="type">int</span>, Mapper *&gt;(nr, mapper));</span><br><span class="line">    mapperNo++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> mitk::VtkPropRenderer::<span class="built_in">Update</span>(mitk::DataNode *datatreenode)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span> (datatreenode != <span class="literal">nullptr</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    mitk::Mapper::Pointer mapper = datatreenode-&gt;<span class="built_in">GetMapper</span>(m_MapperID);</span><br><span class="line">    <span class="keyword">if</span> (mapper.<span class="built_in">IsNotNull</span>())</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">GetCurrentWorldPlaneGeometry</span>()-&gt;<span class="built_in">IsValid</span>())</span><br><span class="line">      &#123;</span><br><span class="line">				<span class="comment">// 调用vtkMapper的Update方法更新vtk所需要渲染的内容</span></span><br><span class="line">        mapper-&gt;<span class="built_in">Update</span>(<span class="keyword">this</span>);</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="keyword">auto</span> *vtkmapper = <span class="built_in">dynamic_cast</span>&lt;VtkMapper *&gt;(mapper.<span class="built_in">GetPointer</span>());</span><br><span class="line">          <span class="keyword">if</span> (vtkmapper != <span class="literal">nullptr</span>)</span><br><span class="line">          &#123;</span><br><span class="line">						<span class="comment">// 更新用户设置的变换矩阵</span></span><br><span class="line">            vtkmapper-&gt;<span class="built_in">UpdateVtkTransform</span>(<span class="keyword">this</span>);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//=================================手动设置vtkProp的属性=================================================================</span></span><br><span class="line"><span class="comment">// 更新手动设置的vtkProp的属性信息，这个没用到过</span></span><br><span class="line"><span class="type">void</span> mitk::VtkPropRenderer::<span class="built_in">PropagateRenderInfoToMappers</span>()</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span> (m_VtkRenderInfo == <span class="literal">nullptr</span>)</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span> &amp;mapEntry : m_MappersMap)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">auto</span> vtkMapper = <span class="built_in">dynamic_cast</span>&lt;mitk::VtkMapper*&gt;(mapEntry.second);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">nullptr</span> != vtkMapper)</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">auto</span> prop = vtkMapper-&gt;<span class="built_in">GetVtkProp</span>(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (<span class="literal">nullptr</span> != prop)</span><br><span class="line">        prop-&gt;<span class="built_in">SetPropertyKeys</span>(m_VtkRenderInfo);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//=================================执行渲染=================================================================</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">这里调用的MitkRenderOpaqueGeometry|MitkRenderTranslucentGeometry|MitkRenderOverlay|MitkRenderVolumetricGeometry的内部就是调用vtk渲染的内部方法了</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">void</span> mitk::VtkMapper::<span class="built_in">MitkRender</span>(mitk::BaseRenderer *renderer, mitk::VtkPropRenderer::RenderType type)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">switch</span> (type)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">case</span> mitk::VtkPropRenderer::Opaque:</span><br><span class="line">      <span class="keyword">this</span>-&gt;<span class="built_in">MitkRenderOpaqueGeometry</span>(renderer);</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> mitk::VtkPropRenderer::Translucent:</span><br><span class="line">      <span class="keyword">this</span>-&gt;<span class="built_in">MitkRenderTranslucentGeometry</span>(renderer);</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> mitk::VtkPropRenderer::Overlay:</span><br><span class="line">      <span class="keyword">this</span>-&gt;<span class="built_in">MitkRenderOverlay</span>(renderer);</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> mitk::VtkPropRenderer::Volumetric:</span><br><span class="line">      <span class="keyword">this</span>-&gt;<span class="built_in">MitkRenderVolumetricGeometry</span>(renderer);</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> mitk::VtkMapper::<span class="built_in">MitkRenderOpaqueGeometry</span>(BaseRenderer *renderer)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">bool</span> visible = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">GetDataNode</span>()-&gt;<span class="built_in">GetVisibility</span>(visible, renderer, <span class="string">&quot;visible&quot;</span>);</span><br><span class="line">  <span class="keyword">if</span> (!visible)</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;<span class="built_in">GetVtkProp</span>(renderer)-&gt;<span class="built_in">GetVisibility</span>())</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">GetVtkProp</span>(renderer)-&gt;<span class="built_in">RenderOpaqueGeometry</span>(renderer-&gt;<span class="built_in">GetVtkRenderer</span>());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+	
+    <div class="copyright-box">
+		<div class="license-box">
+			<div class="license-header">
+				
+				<div class="license-title">
+					Mitk数据操作和渲染
+				</div>
+				<div class="license-subTitle">https://cracknum.github.io/2025/05/25/MITK/Mitk数据操作和渲染/index.html</div>
+			</div>
+			<div class="license-meta">
+				
+					<div class="license-meta-item">
+						<div>作者</div>
+						<div>
+							<a href="">
+								Lei Zhao
+							</a>
+						</div>
+					</div>
+				
+				
+					<div class="license-meta-item license-meta-date">
+					<div>发布于</div>
+					<div>2025年5月25日</div>
+					</div>
+				
+				
+				
+				
+					<div class="license-meta-item">
+					<div>许可协议</div>
+					<div>
+						
+						
+						
+							<a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+								<span class="hint--top hint--rounded" aria-label="BY - 署名">
+									BY - 署名
+								</span>
+							</a>
+						
+						
+					</div>
+					</div>
+				
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+    
+
+    
+
+    
+        
+        <script async reload>
+            fetch("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/tokyo-night-dark.css")
+                .then((response) => response.text())
+                .then((cssContent) => {
+                    const style = document.createElement("style");
+                    
+                        cssContent = cssContent
+                            .replace(".hljs-code,", "")
+                            .replaceAll("_", " ")
+                            .replaceAll("hljs-", "hljs .")
+                            .replaceAll(".hljs", " .highlight")
+                            .replaceAll(".built in", ".built_in")
+                            .replaceAll("title.", "");
+                        const figures = document.querySelectorAll("figure.highlight td.gutter");
+                        figures.forEach(figure=>{
+                            figure.classList.add("highlight");
+                        })
+                    
+                    style.innerHTML = cssContent;
+                    document.head.appendChild(style);
+                })
+                .catch((error) => {
+                    console.error("Error loading CSS:", error);
+                });
+        </script>
+    
+
+
+
+
+
+    <script reload>
+        var targets = document.querySelectorAll("figure.highlight, #article-content > pre:not(.highlight,.hljs)");
+        targets.forEach((block) => {
+            const copyBtn = document.createElement("button");
+            copyBtn.innerHTML = `<i class="fa fa-clone" aria-hidden="true"></i>`;
+            copyBtn.className = "code-copy";
+
+            
+                copyBtn.style.color = "#fff";
+            
+
+            copyBtn.addEventListener("click", () => {
+                const text = block.querySelector("td.code")?.textContent || block.querySelector("code")?.textContent;
+                navigator.clipboard.writeText(text).then(() => {
+                    copyBtn.innerHTML = "Copied!";
+                    setTimeout(() => {
+                        copyBtn.innerHTML = `<i class="fa fa-clone" aria-hidden="true"></i>`;
+                    }, 2000);
+                });
+            });
+            block.appendChild(copyBtn);
+        });
+    </script>
+
+
+
+
+<div class="post-guide">
+	<div class="item left">
+	
+		<a href="/2025/05/25/Others/hexo%20math%20renderer/">
+			<i class="fa fa-angle-left" aria-hidden="true"></i>
+			post
+		</a>
+	
+	</div>
+	<div class="item right">
+		
+	</div>
+</div>
+
+
+
+
+	</div>
+
+	<div id="footer">
+	<div>
+		
+			
+			
+				©2025
+			
+			</span>
+			<a href="">
+				Lei Zhao
+			</a>
+		
+		
+			<span id="busuanzi_container_site_pv">
+				总访问量
+				<span id="vercount_value_page_pv"></span>
+			</span>
+			<span id="busuanzi_container_site_uv">
+				总访客数
+				<span id="vercount_value_site_pv"></span>
+			</span>
+		
+	</div>
+	 <div> Theme <a href="https://github.com/Exisi/hexo-theme-node-tree"	target="_blank">Node-Tree</a> Powered by <a href="https://hexo.io" target="_blank">Hexo</a> </div> 
+</div>
+	<button id="totop-toggle" class="toggle"><i class="fa fa-angle-double-up" aria-hidden="true"></i></button>
+
+<script async>
+    const topTopBtn = document.querySelector("#totop-toggle");
+	topTopBtn.addEventListener("click", () => {
+		window.scrollTo({ top: 0, behavior: "smooth" });
+	});
+</script>
+</body>
+</html>
