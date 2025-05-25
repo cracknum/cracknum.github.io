@@ -231,7 +231,7 @@ a.active {
 .index-brief {
 	position: relative;
 	padding: 5px 5px 10px 5px;
-	font-size: 14px;
+	font-size: 18px;
 	color: #a3a3a3;
 }
 .index-li *:hover {
@@ -240,7 +240,7 @@ a.active {
 .index-title {
 	margin: 5px 0;
 	position: relative;
-	font-size: 18px;
+	font-size: 20px;
 }
 
 #index-paginator {
