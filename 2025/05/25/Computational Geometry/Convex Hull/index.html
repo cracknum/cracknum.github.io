@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<!-- title -->
+	
+<title>
+    
+        Convex Hull&nbsp;&nbsp;✦&nbsp;
+    
+    技术积累
+</title>
+
+	<!-- keywords,description -->
+	
+
+<meta name="author" content="Lei Zhao" />
+
+<meta name="keywords" content="凸包,计算几何,VTK,MITK,Qt,OpenGL" />
+
+<meta name="description" content="一、凸性质 (Convexity)1. 引入
+颜色混合我们可以使用几种只包含R，G的颜色来进行混合从而得到第三种颜色，但是第三种颜色是否可以用这几种颜色勾兑，我们只有从数学上进行尝试，下面我们使用代码进行处理。
+
+def cal_porp_two(color1, color2, resultColor):    for i in range(1, 10):        for j in rang" />
+
+	<!-- favicon -->
+	
+		<link rel="shortcut icon" href="/favicon.ico">
+	
+
+	<!-- css, script -->
+	
+<link rel="stylesheet" href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css">
+
+	
+<link rel="stylesheet" href="/css/main.css">
+
+
+	
+<script src="https://cdn.jsdelivr.net/npm/darkreader@4.9.58/darkreader.min.js"></script>
+
+	
+<script src="/js/main.js"></script>
+
+
+	<!-- custom css and js -->
+	
+
+
+
+
+
+	<!-- search -->
+	<script async>
+	window.searchEngine = "https://www.baidu.com/s?wd=" ?? "https://www.google.com/search?q=";
+	window.homeHost = "https://cracknum.github.io" ?? window.location.host;
+</script>
+
+	<!-- statistics -->
+	
+	<script async reload src="https://cn.vercount.one/js"></script>
+
+
+	<!-- analysis -->
+	
+
+
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body>
+	<header id="header">
+	<a id="title" href="/" class="logo">
+		<img id="logo" src="/favicon-white.ico" alt="logo"/>
+		技术积累
+	</a>
+
+	<ul id="menu">
+		
+			<li class="menu-item">
+				<a href="/about" class="menu-item-link">关于</a>
+			</li>
+		
+		
+			<li class="menu-item">
+				<a href="/tags" class="menu-item-link">标签</a>
+			</li>
+		
+		
+			<li class="menu-item">
+				<a href="/categories" class="menu-item-link">分类</a>
+			</li>
+		
+		
+			<li class="menu-item">
+				<a href="" class="menu-item-link item-icon" target="_blank">
+					<i class="fa fa-github fa-2x"></i>
+				</a>
+			</li>
+		
+		
+			<li class="menu-item dark-mode">
+				<a href="#" class="menu-item-link item-icon">
+					<i class="fa fa-moon-o fa-2x"></i>
+				</a>
+			</li>
+
+			<script async>
+				const localModel = localStorage.getItem("darkModel");
+				const darkModel = !localModel ? 0 : localModel;
+
+				const darkModeIcon = document.querySelector("#menu .dark-mode i");
+
+				if (darkModel == 1) {
+					darkModeIcon.classList.replace("fa-moon-o", "fa-sun-o");
+					DarkReader.enable({
+						brightness: 100,
+						contrast: 90,
+						sepia: 10,
+					});
+				}
+
+				darkModeIcon.addEventListener("click", () => {
+					const isMoon = darkModeIcon.classList.contains("fa-moon-o");
+					darkModeIcon.classList.toggle("fa-moon-o", !isMoon);
+					darkModeIcon.classList.toggle("fa-sun-o", isMoon);
+					localStorage.setItem("darkModel", isMoon ? 1 : 0);
+					isMoon ? DarkReader.enable({ brightness: 100, contrast: 90, sepia: 10 }) : DarkReader.disable();
+				});
+			</script>
+		
+	</ul>
+</header>
+
+<script async>
+	let startHeight = 0;
+	window.addEventListener("scroll", () => {
+		const { scrollY: endHeight } = window;
+		const distance = endHeight - startHeight;
+		startHeight = endHeight;
+		document.querySelector("#header").style.display = distance > 0 && endHeight > 50 ? "none" : "";
+	});
+</script>
+	<div id="sidebar">
+	<button id="sidebar-toggle" class="toggle" ><i class="fa fa-arrow-right " aria-hidden="true"></i></button>
+	<div id="site-toc">
+		<input id="search-input" class="search-input" type="search" placeholder="按回车全站搜索">
+		<div id="tree">
+			
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="VTK" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											VTK
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2025/05/25/VTK/test/" title="/2025/05/25/VTK/test">
+									
+										test
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="Computational Geometry" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											Computational Geometry
+										</a>
+			
+									
+							<ul>
+								<li class="file active">
+									<a href="/2025/05/25/Computational%20Geometry/Convex%20Hull/" title="/2025/05/25/Computational Geometry/Convex Hull">
+									
+										Convex Hull
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="Others" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											Others
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2025/05/25/Others/hexo%20math%20renderer/" title="/2025/05/25/Others/hexo math renderer">
+									
+										hexo math renderer
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+		</div>
+	</div>
+</div>
+
+	<div id="content">
+		<h1 id="article-title">
+	Convex Hull
+</h1>
+
+<div class="article-meta">
+	<span> Lei Zhao </span>
+	<span> 2025-05-25 16:14:25 </span>
+	<div id="article-categories">
+		
+			<span>Categories：</span>
+			
+				
+				<span>
+					<i class="fa fa-folder" aria-hidden="true">
+						<a href="/categories/计算几何/">
+							计算几何
+						</a>
+					</i>
+				
+				</span>
+				
+			
+		
+		
+			<span>Tags：</span>
+			
+				
+					<span>
+						<i class="fa fa-tag" aria-hidden="true">
+							<a href="/tags/凸包/">
+								凸包
+							</a>
+						</i>
+					</span>
+				
+			
+		
+	</div>
+</div>
+
+<div id="article-content">
+	<h1 id="一、凸性质-Convexity"><a href="#一、凸性质-Convexity" class="headerlink" title="一、凸性质 (Convexity)"></a>一、凸性质 (Convexity)</h1><h2 id="1-引入"><a href="#1-引入" class="headerlink" title="1. 引入"></a>1. 引入</h2><ol>
+<li>颜色混合<br><img src="颜色混合.png" alt="颜色混合"><br>我们可以使用几种只包含R，G的颜色来进行混合从而得到第三种颜色，但是第三种颜色是否可以用这几种颜色勾兑，我们只有从数学上进行尝试，下面我们使用代码进行处理。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">cal_porp_two</span>(<span class="params">color1, color2, resultColor</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">10</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">10</span>):</span><br><span class="line">            <span class="keyword">if</span> ((color1[<span class="number">0</span>] * i + color2[<span class="number">0</span>] * j) % resultColor[<span class="number">0</span>] == <span class="number">0</span> <span class="keyword">and</span></span><br><span class="line">                (color1[<span class="number">1</span>] * i + color2[<span class="number">1</span>] * j) % resultColor[<span class="number">1</span>] == <span class="number">0</span>):</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">"two kind of colors mix proportion: color1"</span>, i, <span class="string">", color2: "</span>, j)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cal_porp_three</span>(<span class="params">color1, color2, color3, resultColor</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">10</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">10</span>):</span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">10</span>):</span><br><span class="line">                mixed_color = <span class="built_in">tuple</span>(<span class="built_in">map</span>(<span class="keyword">lambda</span> color1_i, color2_i, color3_i: i * color1_i + j * color2_i + k * color3_i, color1, color2, color3))</span><br><span class="line">                <span class="keyword">if</span> (mixed_color[<span class="number">0</span>] % resultColor[<span class="number">0</span>] == <span class="number">0</span> <span class="keyword">and</span></span><br><span class="line">                    mixed_color[<span class="number">1</span>] % resultColor[<span class="number">1</span>] == <span class="number">0</span>):</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">"three kind of colors mix proportion: color1"</span>, i, <span class="string">", color2: "</span>, j, <span class="string">", color3: "</span>, k)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    color1 = (<span class="number">10</span>, <span class="number">35</span>)</span><br><span class="line">    color2 = (<span class="number">16</span>, <span class="number">20</span>)</span><br><span class="line">    color3 = (<span class="number">7</span>, <span class="number">15</span>)</span><br><span class="line">    result_color = (<span class="number">12</span>, <span class="number">30</span>)</span><br><span class="line">    cal_porp_two(color1, color2, result_color)</span><br><span class="line">    cal_porp_three(color1, color2, color3, (<span class="number">13</span>, <span class="number">22</span>))</span><br></pre></td></tr></table></figure>
+<p>也即是通过穷举混合比例来进行判断我们是否可以通过混合得到第三种颜色，从代码也可以看出这种方法的时间复杂度是非常高的，三种的时间复杂度为<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="5.832ex" height="2.451ex" role="img" focusable="false" viewBox="0 -833.2 2577.6 1083.2"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msup" transform="translate(1152,0)"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(633,363) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g></g><g data-mml-node="mo" transform="translate(2188.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container>，如果要是4种、5种甚至更多呢？</p>
+<p>接下来我们可以通过几何的方式来对数据进行解释，来尝试降低时间复杂度</p>
+<ol>
+<li>几何解释 (颜色空间)<br><img src="几何解释.png" alt="几何解释"><br>将上述的颜色转换为几何上的坐标，从图上可以看出对于使用两种颜色就可以勾兑出第三种颜色的情况，在几何上第三种颜色必定会在两种颜色之间；对于需要使用三种颜色才能勾兑出的颜色那么勾兑出的颜色也必须在三种颜色组成的三角形内部或者三角形的边上。</li>
+</ol>
+<p>通过上述转换，我们就将从三种颜色的随意组合问题<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="5.832ex" height="2.451ex" role="img" focusable="false" viewBox="0 -833.2 2577.6 1083.2"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msup" transform="translate(1152,0)"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(633,363) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g></g><g data-mml-node="mo" transform="translate(2188.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container>转换为了线性问题也就是判断需要勾兑的颜色是否在三角形的内部，就可以得知需要的颜色是否可以被勾兑出来。</p>
+<p>另外，我们知道并非每一种颜色都有资格作为颜色空间的”基颜色”而存在的，这个就像我们在笛卡尔坐标系中的解释是一样的，在二维笛卡尔坐标系中的每个点都可以使用两个基向量进行“勾兑”出来，所以在这个颜色混合的问题中我们也要提取出“基颜色”。从笛卡尔坐标系中我们得知基向量都是相互垂直不存在相关关系的一组向量而构成的，所以这里的“基颜色”也是互不相关，也即无法通过组合而得到的颜色而构成的，在凸问题中我们称这种“基颜色”为凸无关，而能够被组合出来的颜色所代表的点我们称之为凸相关。</p>
+<ol>
+<li>凸组合 (Covex Combination)<br><img src="凸相关和凸无关.png" alt="凸相关和凸无关"></li>
+</ol>
+<p>这里给出了凸组合的概念。凸组合需要满足两个条件</p>
+<ul>
+<li>组合系数需要大于等于0</li>
+<li>组合系数之和等于1</li>
+</ul>
+<p>这里无需给出更多的解释，从几何解释中我们就可以理解为什么这样定义。</p>
+<p>凸相关的点其实并不被我们在凸的性质中需要，从几何解释中我们可以看到这些点被包裹在凸的内部并不会对我们处理问题给出任何的优势。</p>
+<h1 id="二、极点-Extreme-Points"><a href="#二、极点-Extreme-Points" class="headerlink" title="二、极点 (Extreme Points)"></a>二、极点 (Extreme Points)</h1><h1 id="三、极边-Extreme-Edges"><a href="#三、极边-Extreme-Edges" class="headerlink" title="三、极边 (Extreme Edges)"></a>三、极边 (Extreme Edges)</h1><h1 id="四、增量构建-Incremental-Construction"><a href="#四、增量构建-Incremental-Construction" class="headerlink" title="四、增量构建 (Incremental Construction)"></a>四、增量构建 (Incremental Construction)</h1><h1 id="五、Javis-March"><a href="#五、Javis-March" class="headerlink" title="五、Javis March"></a>五、Javis March</h1><h1 id="六、Lower-Bound"><a href="#六、Lower-Bound" class="headerlink" title="六、Lower Bound"></a>六、Lower Bound</h1><h1 id="七、Graham-Scan-Alogrithm"><a href="#七、Graham-Scan-Alogrithm" class="headerlink" title="七、Graham Scan: Alogrithm"></a>七、Graham Scan: Alogrithm</h1><h1 id="八、Graham-Scan-Example"><a href="#八、Graham-Scan-Example" class="headerlink" title="八、Graham Scan: Example"></a>八、Graham Scan: Example</h1><h1 id="九、Graham-Scan-Correctness"><a href="#九、Graham-Scan-Correctness" class="headerlink" title="九、Graham Scan: Correctness"></a>九、Graham Scan: Correctness</h1><h1 id="十、Graham-Scan-Analysis"><a href="#十、Graham-Scan-Analysis" class="headerlink" title="十、Graham Scan: Analysis"></a>十、Graham Scan: Analysis</h1><h1 id="十一、Divide-And-Conquer"><a href="#十一、Divide-And-Conquer" class="headerlink" title="十一、Divide-And-Conquer"></a>十一、Divide-And-Conquer</h1><h1 id="十二、Wrap-up"><a href="#十二、Wrap-up" class="headerlink" title="十二、Wrap-up"></a>十二、Wrap-up</h1>
+	
+    <div class="copyright-box">
+		<div class="license-box">
+			<div class="license-header">
+				
+				<div class="license-title">
+					Convex Hull
+				</div>
+				<div class="license-subTitle">https://cracknum.github.io/2025/05/25/Computational Geometry/Convex Hull/index.html</div>
+			</div>
+			<div class="license-meta">
+				
+					<div class="license-meta-item">
+						<div>作者</div>
+						<div>
+							<a href="">
+								Lei Zhao
+							</a>
+						</div>
+					</div>
+				
+				
+					<div class="license-meta-item license-meta-date">
+					<div>发布于</div>
+					<div>2025年5月25日</div>
+					</div>
+				
+				
+				
+				
+					<div class="license-meta-item">
+					<div>许可协议</div>
+					<div>
+						
+						
+						
+							<a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+								<span class="hint--top hint--rounded" aria-label="BY - 署名">
+									BY - 署名
+								</span>
+							</a>
+						
+						
+					</div>
+					</div>
+				
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+    
+
+    
+
+    
+        
+        <script async reload>
+            fetch("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/tokyo-night-dark.css")
+                .then((response) => response.text())
+                .then((cssContent) => {
+                    const style = document.createElement("style");
+                    
+                        cssContent = cssContent
+                            .replace(".hljs-code,", "")
+                            .replaceAll("_", " ")
+                            .replaceAll("hljs-", "hljs .")
+                            .replaceAll(".hljs", " .highlight")
+                            .replaceAll(".built in", ".built_in")
+                            .replaceAll("title.", "");
+                        const figures = document.querySelectorAll("figure.highlight td.gutter");
+                        figures.forEach(figure=>{
+                            figure.classList.add("highlight");
+                        })
+                    
+                    style.innerHTML = cssContent;
+                    document.head.appendChild(style);
+                })
+                .catch((error) => {
+                    console.error("Error loading CSS:", error);
+                });
+        </script>
+    
+
+
+
+
+
+    <script reload>
+        var targets = document.querySelectorAll("figure.highlight, #article-content > pre:not(.highlight,.hljs)");
+        targets.forEach((block) => {
+            const copyBtn = document.createElement("button");
+            copyBtn.innerHTML = `<i class="fa fa-clone" aria-hidden="true"></i>`;
+            copyBtn.className = "code-copy";
+
+            
+                copyBtn.style.color = "#fff";
+            
+
+            copyBtn.addEventListener("click", () => {
+                const text = block.querySelector("td.code")?.textContent || block.querySelector("code")?.textContent;
+                navigator.clipboard.writeText(text).then(() => {
+                    copyBtn.innerHTML = "Copied!";
+                    setTimeout(() => {
+                        copyBtn.innerHTML = `<i class="fa fa-clone" aria-hidden="true"></i>`;
+                    }, 2000);
+                });
+            });
+            block.appendChild(copyBtn);
+        });
+    </script>
+
+
+
+
+<div class="post-guide">
+	<div class="item left">
+	
+		<a href="/2025/05/25/VTK/test/">
+			<i class="fa fa-angle-left" aria-hidden="true"></i>
+			page
+		</a>
+	
+	</div>
+	<div class="item right">
+		
+		<a href="/2025/05/25/Others/hexo%20math%20renderer/">
+			hexo math renderer
+			<i class="fa fa-angle-right" aria-hidden="true"></i>
+		</a>
+		
+	</div>
+</div>
+
+
+
+
+	</div>
+
+	<div id="footer">
+	<div>
+		
+			
+			
+				©2025
+			
+			</span>
+			<a href="">
+				Lei Zhao
+			</a>
+		
+		
+			<span id="busuanzi_container_site_pv">
+				总访问量
+				<span id="vercount_value_page_pv"></span>
+			</span>
+			<span id="busuanzi_container_site_uv">
+				总访客数
+				<span id="vercount_value_site_pv"></span>
+			</span>
+		
+	</div>
+	 <div> Theme <a href="https://github.com/Exisi/hexo-theme-node-tree"	target="_blank">Node-Tree</a> Powered by <a href="https://hexo.io" target="_blank">Hexo</a> </div> 
+</div>
+	<button id="totop-toggle" class="toggle"><i class="fa fa-angle-double-up" aria-hidden="true"></i></button>
+
+<script async>
+    const topTopBtn = document.querySelector("#totop-toggle");
+	topTopBtn.addEventListener("click", () => {
+		window.scrollTo({ top: 0, behavior: "smooth" });
+	});
+</script>
+</body>
+</html>

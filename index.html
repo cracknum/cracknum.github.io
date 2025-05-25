@@ -62,7 +62,119 @@
 	
 
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body>
 	<header id="header">
@@ -147,17 +259,17 @@
 							<ul>
 								<li class="directory">
 			
-										<a title="1" class="directory-empty">
+										<a title="VTK" class="directory-empty">
 											<i class="fa fa-plus-square-o"></i>
-											1
+											VTK
 										</a>
 			
 									
 							<ul>
 								<li class="file">
-									<a href="/2025/05/24/1/hello-world/" title="/2025/05/24/1/hello-world">
+									<a href="/2025/05/25/VTK/test/" title="/2025/05/25/VTK/test">
 									
-										hello-world
+										test
 									
 									</a>
 								</li>
@@ -170,17 +282,40 @@
 							<ul>
 								<li class="directory">
 			
-										<a title="2" class="directory-empty">
+										<a title="Computational Geometry" class="directory-empty">
 											<i class="fa fa-plus-square-o"></i>
-											2
+											Computational Geometry
 										</a>
 			
 									
 							<ul>
 								<li class="file">
-									<a href="/2025/05/25/2/test/" title="/2025/05/25/2/test">
+									<a href="/2025/05/25/Computational%20Geometry/Convex%20Hull/" title="/2025/05/25/Computational Geometry/Convex Hull">
 									
-										test
+										Convex Hull
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="Others" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											Others
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2025/05/25/Others/hexo%20math%20renderer/" title="/2025/05/25/Others/hexo math renderer">
+									
+										hexo math renderer
 									
 									</a>
 								</li>
@@ -198,7 +333,57 @@
 		<div id="index">
 	
 	<div class="index-li">
-		<a href="/2025/05/25/2/test/">
+		<a href="/2025/05/25/Others/hexo%20math%20renderer/">
+			<h2 class="index-title">
+				post
+			</h2>
+			<div class="index-brief">
+				数学公式渲染数学公式渲染参照hexo-filter-mathjax
+ ...
+			</div>
+		</a>
+		<div class="article-meta">
+			<span>2025-05-25</span>
+			  
+			<span>
+				<i class="fa fa-folder" aria-hidden="true"></i>
+				<a href="/categories/hexo-setting/"
+					>hexo setting</a
+				>
+				
+			</span>
+			  
+		</div>
+	</div>
+	
+	<div class="index-li">
+		<a href="/2025/05/25/Computational%20Geometry/Convex%20Hull/">
+			<h2 class="index-title">
+				Convex Hull
+			</h2>
+			<div class="index-brief">
+				一、凸性质 (Convexity)1. 引入
+颜色混合我们可以使用几种只包含R，G的颜色来进行混合从而得到第三种颜色，但是第三种颜色是否可以用这几种颜色勾兑，我们只有从数学上进行尝试，下面我们使用代码进行处理。
+
+def cal_porp_two(color1, color2, resultColor):    for i in range(1, 10):        for j in rang ...
+			</div>
+		</a>
+		<div class="article-meta">
+			<span>2025-05-25</span>
+			  
+			<span>
+				<i class="fa fa-folder" aria-hidden="true"></i>
+				<a href="/categories/计算几何/"
+					>计算几何</a
+				>
+				
+			</span>
+			  
+		</div>
+	</div>
+	
+	<div class="index-li">
+		<a href="/2025/05/25/VTK/test/">
 			<h2 class="index-title">
 				page
 			</h2>
@@ -208,22 +393,6 @@
 		</a>
 		<div class="article-meta">
 			<span>2025-05-25</span>
-			  
-		</div>
-	</div>
-	
-	<div class="index-li">
-		<a href="/2025/05/24/1/hello-world/">
-			<h2 class="index-title">
-				Hello World
-			</h2>
-			<div class="index-brief">
-				Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick ...
-			</div>
-		</a>
-		<div class="article-meta">
-			<span>2025-05-24</span>
 			  
 		</div>
 	</div>
