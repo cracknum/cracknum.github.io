@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cracknum.github.io/2025/06/01/Computational%20Geometry/InTriangleTest/</loc>
+    
+    <lastmod>2025-06-01</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://cracknum.github.io/about/index.html</loc>
     
     <lastmod>2025-06-01</lastmod>
@@ -83,14 +92,14 @@
 
   
   <url>
-    <loc>https://cracknum.github.io/tags/hexo/</loc>
+    <loc>https://cracknum.github.io/tags/%E5%87%B8%E5%8C%85/</loc>
     <lastmod>2025-06-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://cracknum.github.io/tags/%E5%87%B8%E5%8C%85/</loc>
+    <loc>https://cracknum.github.io/tags/hexo/</loc>
     <lastmod>2025-06-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -99,14 +108,14 @@
 
   
   <url>
-    <loc>https://cracknum.github.io/categories/hexo-setting/</loc>
+    <loc>https://cracknum.github.io/categories/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/</loc>
     <lastmod>2025-06-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://cracknum.github.io/categories/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/</loc>
+    <loc>https://cracknum.github.io/categories/hexo-setting/</loc>
     <lastmod>2025-06-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

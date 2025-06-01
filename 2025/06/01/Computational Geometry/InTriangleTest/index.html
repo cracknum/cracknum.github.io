@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<!-- title -->
+	
+<title>
+    
+        Convex Hull In Triangle Test&nbsp;&nbsp;✦&nbsp;
+    
+    技术积累
+</title>
+
+	<!-- keywords,description -->
+	
+
+<meta name="author" content="Lei Zhao" />
+
+<meta name="keywords" content="凸包,计算几何,VTK,MITK,Qt,OpenGL" />
+
+<meta name="description" content="! pip install matplotlib
+Requirement already satisfied: matplotlib in f:\software\miniconda3\envs\cg\lib\site-packages (3.3.4)Requirement already satisfied: pyparsing!=2.0.4,!=2.1.2,!=2.1.6,&amp;gt;=2.0.3" />
+
+	<!-- favicon -->
+	
+		<link rel="shortcut icon" href="/favicon.ico">
+	
+
+	<!-- css, script -->
+	
+<link rel="stylesheet" href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css">
+
+	
+<link rel="stylesheet" href="/css/main.css">
+
+
+	
+<script src="https://cdn.jsdelivr.net/npm/darkreader@4.9.58/darkreader.min.js"></script>
+
+	
+<script src="/js/main.js"></script>
+
+
+	<!-- custom css and js -->
+	
+
+
+
+
+
+	<!-- search -->
+	<script async>
+	window.searchEngine = "https://www.baidu.com/s?wd=" ?? "https://www.google.com/search?q=";
+	window.homeHost = "https://cracknum.github.io" ?? window.location.host;
+</script>
+
+	<!-- statistics -->
+	
+	<script async reload src="https://cn.vercount.one/js"></script>
+
+
+	<!-- analysis -->
+	
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+	<header id="header">
+	<a id="title" href="/" class="logo">
+		<img id="logo" src="/favicon-white.ico" alt="logo"/>
+		技术积累
+	</a>
+
+	<ul id="menu">
+		
+			<li class="menu-item">
+				<a href="/about" class="menu-item-link">关于</a>
+			</li>
+		
+		
+			<li class="menu-item">
+				<a href="/tags" class="menu-item-link">标签</a>
+			</li>
+		
+		
+			<li class="menu-item">
+				<a href="/categories" class="menu-item-link">分类</a>
+			</li>
+		
+		
+			<li class="menu-item">
+				<a href="" class="menu-item-link item-icon" target="_blank">
+					<i class="fa fa-github fa-2x"></i>
+				</a>
+			</li>
+		
+		
+			<li class="menu-item dark-mode">
+				<a href="#" class="menu-item-link item-icon">
+					<i class="fa fa-moon-o fa-2x"></i>
+				</a>
+			</li>
+
+			<script async>
+				const localModel = localStorage.getItem("darkModel");
+				const darkModel = !localModel ? 0 : localModel;
+
+				const darkModeIcon = document.querySelector("#menu .dark-mode i");
+
+				if (darkModel == 1) {
+					darkModeIcon.classList.replace("fa-moon-o", "fa-sun-o");
+					DarkReader.enable({
+						brightness: 100,
+						contrast: 90,
+						sepia: 10,
+					});
+				}
+
+				darkModeIcon.addEventListener("click", () => {
+					const isMoon = darkModeIcon.classList.contains("fa-moon-o");
+					darkModeIcon.classList.toggle("fa-moon-o", !isMoon);
+					darkModeIcon.classList.toggle("fa-sun-o", isMoon);
+					localStorage.setItem("darkModel", isMoon ? 1 : 0);
+					isMoon ? DarkReader.enable({ brightness: 100, contrast: 90, sepia: 10 }) : DarkReader.disable();
+				});
+			</script>
+		
+	</ul>
+</header>
+
+<script async>
+	let startHeight = 0;
+	window.addEventListener("scroll", () => {
+		const { scrollY: endHeight } = window;
+		const distance = endHeight - startHeight;
+		startHeight = endHeight;
+		document.querySelector("#header").style.display = distance > 0 && endHeight > 50 ? "none" : "";
+	});
+</script>
+	<div id="sidebar">
+	<button id="sidebar-toggle" class="toggle" ><i class="fa fa-arrow-right " aria-hidden="true"></i></button>
+	<div id="site-toc">
+		<input id="search-input" class="search-input" type="search" placeholder="按回车全站搜索">
+		<div id="tree">
+			
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="VTK" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											VTK
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2025/05/25/VTK/test/" title="/2025/05/25/VTK/test">
+									
+										test
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="Others" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											Others
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2025/05/25/Others/hexo%20math%20renderer/" title="/2025/05/25/Others/hexo math renderer">
+									
+										hexo math renderer
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="MITK" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											MITK
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2025/05/25/MITK/Mitk%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C%E5%92%8C%E6%B8%B2%E6%9F%93/" title="/2025/05/25/MITK/Mitk数据操作和渲染">
+									
+										Mitk数据操作和渲染
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+			
+										<a title="Computational Geometry" class="directory-empty">
+											<i class="fa fa-plus-square-o"></i>
+											Computational Geometry
+										</a>
+			
+									
+							<ul>
+								<li class="file">
+									<a href="/2025/05/25/Computational%20Geometry/Convex%20Hull/" title="/2025/05/25/Computational Geometry/Convex Hull">
+									
+										Convex Hull
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file active">
+									<a href="/2025/06/01/Computational%20Geometry/InTriangleTest/" title="/2025/06/01/Computational Geometry/InTriangleTest">
+									
+										InTriangleTest
+									
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+							</ul>
+			
+		</div>
+	</div>
+</div>
+
+	<div id="content">
+		<h1 id="article-title">
+	Convex Hull In Triangle Test
+</h1>
+
+<div class="article-meta">
+	<span> Lei Zhao </span>
+	<span> 2025-06-01 16:14:25 </span>
+	<div id="article-categories">
+		
+			<span>Categories：</span>
+			
+				
+				<span>
+					<i class="fa fa-folder" aria-hidden="true">
+						<a href="/categories/计算几何/">
+							计算几何
+						</a>
+					</i>
+				
+				</span>
+				
+			
+		
+		
+			<span>Tags：</span>
+			
+				
+					<span>
+						<i class="fa fa-tag" aria-hidden="true">
+							<a href="/tags/凸包/">
+								凸包
+							</a>
+						</i>
+					</span>
+				
+			
+		
+	</div>
+</div>
+
+<div id="article-content">
+	<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">! pip install matplotlib</span><br></pre></td></tr></table></figure>
+<p>Requirement already satisfied: matplotlib in f:\software\miniconda3\envs\cg\lib\site-packages (3.3.4)<br>Requirement already satisfied: pyparsing!=2.0.4,!=2.1.2,!=2.1.6,&gt;=2.0.3 in f:\software\miniconda3\envs\cg\lib\site-packages (from matplotlib) (3.1.4)<br>Requirement already satisfied: pillow&gt;=6.2.0 in f:\software\miniconda3\envs\cg\lib\site-packages (from matplotlib) (8.4.0)<br>Requirement already satisfied: kiwisolver&gt;=1.0.1 in f:\software\miniconda3\envs\cg\lib\site-packages (from matplotlib) (1.3.1)<br>Requirement already satisfied: python-dateutil&gt;=2.1 in f:\software\miniconda3\envs\cg\lib\site-packages (from matplotlib) (2.8.2)<br>Requirement already satisfied: numpy&gt;=1.15 in f:\software\miniconda3\envs\cg\lib\site-packages (from matplotlib) (1.19.5)<br>Requirement already satisfied: cycler&gt;=0.10 in f:\software\miniconda3\envs\cg\lib\site-packages (from matplotlib) (0.11.0)<br>Requirement already satisfied: six&gt;=1.5 in f:\software\miniconda3\envs\cg\lib\site-packages (from python-dateutil&gt;=2.1-&gt;matplotlib) (1.16.0)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> random</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x_list = [random.uniform(-<span class="number">10</span>, <span class="number">10</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(-<span class="number">10</span>, <span class="number">10</span>)]</span><br><span class="line">y_list = [random.uniform(-<span class="number">10</span>, <span class="number">10</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(-<span class="number">10</span>, <span class="number">10</span>)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> x, y <span class="keyword">in</span> <span class="built_in">zip</span>(x_list, y_list):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;x: &quot;</span>, x, <span class="string">&quot;, y: &quot;</span>, y)</span><br></pre></td></tr></table></figure>
+<pre><code>x:  4.039168902596996 , y:  -3.3201577215726052
+x:  8.459999626479327 , y:  -0.13736825068833447
+x:  -8.342991923279612 , y:  -7.1629815679156295
+x:  -0.36787835718506656 , y:  -2.448133980966465
+x:  -0.4687168346934456 , y:  3.040681358244493
+x:  -0.28685616430452576 , y:  1.6545115981901226
+x:  9.837035515217035 , y:  3.2942306587502763
+x:  4.5016481434863 , y:  -2.0413345594040377
+x:  1.9318082484926524 , y:  0.18651139391879568
+x:  4.350205767699428 , y:  8.216285604804607
+x:  -9.999493760191719 , y:  4.303036544064035
+x:  -1.7286270125282286 , y:  -1.7820149178647036
+x:  -8.591753322699772 , y:  0.23047966128983788
+x:  5.895396308797414 , y:  -7.628641617043197
+x:  7.509420190645113 , y:  1.003304733473744
+x:  -6.978923639231656 , y:  -2.5683449048039293
+x:  -7.722623283046808 , y:  8.043854497193191
+x:  -5.831863423334667 , y:  4.200704989700856
+x:  5.439294098013551 , y:  -1.479249543919769
+x:  7.151000669383279 , y:  8.93879798676696
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plt.xlim(-<span class="number">10</span>, <span class="number">10</span>)</span><br><span class="line">plt.ylim(-<span class="number">10</span>, <span class="number">10</span>)</span><br><span class="line">plt.figure(figsize=(<span class="number">600</span>, <span class="number">800</span>))</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;Figure size 43200x57600 with 0 Axes&gt;
+</code></pre><p><img src="InTriangleTest_3_1.png" alt="png"></p>
+<pre><code>&lt;Figure size 43200x57600 with 0 Axes&gt;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plt.scatter(x_list, y_list, s=<span class="number">10</span>, marker=<span class="string">&quot;o&quot;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="InTriangleTest_4_0.png" alt="png"></p>
+<h1 id="寻找极点（穷举）"><a href="#寻找极点（穷举）" class="headerlink" title="寻找极点（穷举）"></a>寻找极点（穷举）</h1><ol>
+<li>选择任意三个不共线的顶点，构成三角形</li>
+<li>对所有顶点执行三角形构造</li>
+<li>判断每一个顶点（除当前判断三角形外）是否在三角形内，如果在三角形内则排除其是极点，如果顶点不被任何一个三角形包围则证明是极点</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 左侧顶点测试, 测试直线point1--&gt;point2</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">to_left_test</span>(<span class="params">point1, point2, point3</span>)-&gt; <span class="built_in">bool</span>:</span><br><span class="line">    <span class="comment"># 叉积刚好是由两个向量所在的平行四边形面积的两倍</span></span><br><span class="line">    value = point1[<span class="number">0</span>] * (point2[<span class="number">1</span>] - point3[<span class="number">1</span>]) + point2[<span class="number">0</span>] * (point3[<span class="number">1</span>] - point1[<span class="number">1</span>]) + point3[<span class="number">0</span>] * (point1[<span class="number">1</span>] - point2[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">if</span> value &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<h1 id="测试三个顶点是否共线"><a href="#测试三个顶点是否共线" class="headerlink" title="测试三个顶点是否共线"></a>测试三个顶点是否共线</h1><p>要判断三个点是否共线，可以通过计算由这三个点形成的向量所构成的行列式的值来实现。如果这三个点共线，那么它们形成的任意两个向量的外积（即叉乘）会是零向量，这等价于这两个向量组成的平行四边形面积为0。对于二维平面上的点来说，这可以通过计算一个特定的2x2矩阵的行列式来完成，或者直接使用一个3x3行列式的方法。</p>
+<hr>
+<h3 id="使用行列式判断三点共线"><a href="#使用行列式判断三点共线" class="headerlink" title="使用行列式判断三点共线"></a>使用行列式判断三点共线</h3><p>给定三个点 $ P_1(x_1, y_1) $，$ P_2(x_2, y_2) $，和 $ P_3(x_3, y_3) $，这三个点共线的条件是：</p>
+<script type="math/tex; mode=display">
+\text{det}
+\begin{pmatrix}
+x_1 & y_1 & 1 \\
+x_2 & y_2 & 1 \\
+x_3 & y_3 & 1
+\end{pmatrix}
+= 0</script><p>这个行列式可以直接展开计算，其结果为：</p>
+<script type="math/tex; mode=display">
+x_1(y_2 - y_3) + x_2(y_3 - y_1) + x_3(y_1 - y_2)</script><p>如果该表达式的值为 0，则说明这三个点 <strong>共线</strong>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">colinear_test</span>(<span class="params">point1, point2, point3</span>) -&gt;<span class="built_in">bool</span>:</span><br><span class="line">    value = point1[<span class="number">0</span>] * (point2[<span class="number">1</span>] - point3[<span class="number">1</span>]) + point2[<span class="number">0</span>] * (point3[<span class="number">1</span>] - point1[<span class="number">1</span>]) + point3[<span class="number">0</span>] * (point1[<span class="number">1</span>] - point2[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">if</span> value == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="literal">False</span> == colinear_test([<span class="number">1</span>, <span class="number">0</span>], [<span class="number">0</span>, <span class="number">1</span>], [<span class="number">1</span>, <span class="number">1</span>]):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;succeed&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;error&quot;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>succeed
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line">triangles = []</span><br><span class="line">point_set = []</span><br><span class="line">generate_triangle_points_x = []</span><br><span class="line">generate_triangle_points_y = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> index, point <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="built_in">zip</span>(x_list, y_list)):</span><br><span class="line">    <span class="keyword">if</span> index % <span class="number">3</span> == <span class="number">0</span>:</span><br><span class="line">        generate_triangle_points_x.append(point[<span class="number">0</span>])</span><br><span class="line">        generate_triangle_points_y.append(point[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        point_set.append(point)</span><br><span class="line">    </span><br><span class="line">    index += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">points = <span class="built_in">zip</span>(generate_triangle_points_x, generate_triangle_points_y)</span><br><span class="line"><span class="keyword">for</span> index, triangle <span class="keyword">in</span> <span class="built_in">enumerate</span>(itertools.combinations(points, <span class="number">3</span>)):</span><br><span class="line">    triangles.append(triangle)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;point&#x27;s size: &quot;</span>, <span class="built_in">len</span>(x_list))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;triangle point&#x27;s size: &quot;</span>, <span class="built_in">len</span>(generate_triangle_points_x))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;point_set point&#x27;s size: &quot;</span>, <span class="built_in">len</span>(point_set))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code>point&#39;s size:  20
+triangle point&#39;s size:  7
+point_set point&#39;s size:  13
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">draw_triangles_and_points</span>(<span class="params">points, triangles, title</span>):</span><br><span class="line">    plt.figure(figsize=(<span class="number">10</span>, <span class="number">10</span>))</span><br><span class="line">    plt.title(title)</span><br><span class="line">    <span class="comment"># 绘制散点图</span></span><br><span class="line">    <span class="keyword">for</span> point <span class="keyword">in</span> points:</span><br><span class="line">        plt.scatter(*point)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 绘制三角形</span></span><br><span class="line">    <span class="keyword">for</span> triangle <span class="keyword">in</span> triangles:</span><br><span class="line">        point1 = triangle[<span class="number">0</span>]</span><br><span class="line">        point2 = triangle[<span class="number">1</span>]</span><br><span class="line">        point3 = triangle[<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line">        plt.plot([point1[<span class="number">0</span>], point2[<span class="number">0</span>]], [point1[<span class="number">1</span>], point2[<span class="number">1</span>]], color=<span class="string">&quot;blue&quot;</span>, linewidth=<span class="number">1</span>)</span><br><span class="line">        plt.plot([point1[<span class="number">0</span>], point3[<span class="number">0</span>]], [point1[<span class="number">1</span>], point3[<span class="number">1</span>]], color=<span class="string">&quot;blue&quot;</span>, linewidth=<span class="number">1</span>)</span><br><span class="line">        plt.plot([point2[<span class="number">0</span>], point3[<span class="number">0</span>]], [point2[<span class="number">1</span>], point3[<span class="number">1</span>]], color=<span class="string">&quot;blue&quot;</span>, linewidth=<span class="number">1</span>)</span><br><span class="line">            </span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># triangle test Functions</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test_point_in_triangle</span>(<span class="params">point: <span class="built_in">list</span>, triangle: <span class="built_in">list</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">    point_1 = triangle[<span class="number">0</span>]</span><br><span class="line">    point_2 = triangle[<span class="number">1</span>]</span><br><span class="line">    point_3 = triangle[<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line">    test_result1 = to_left_test(point_1, point_2, point)</span><br><span class="line">    test_result2 = to_left_test(point_2, point_3, point)</span><br><span class="line">    test_result3 = to_left_test(point_3, point_1, point)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> test_result1 == test_result2 <span class="keyword">and</span> \</span><br><span class="line">       test_result2 == test_result3:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test_point_in_triangles</span>(<span class="params">point: <span class="built_in">list</span>, triangles</span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">    <span class="keyword">for</span> triangle <span class="keyword">in</span> triangles:</span><br><span class="line">        <span class="keyword">if</span> test_point_in_triangle(point, triangle) == <span class="literal">True</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Test All Point</span></span><br><span class="line">draw_list = []</span><br><span class="line"><span class="keyword">for</span> point <span class="keyword">in</span> point_set:</span><br><span class="line">    test_result = test_point_in_triangles(point, triangles)</span><br><span class="line">    draw_list.append(test_result)</span><br><span class="line"></span><br><span class="line">draw_points = [point <span class="keyword">for</span> point, is_draw <span class="keyword">in</span> <span class="built_in">zip</span>(point_set, draw_list) <span class="keyword">if</span> <span class="literal">True</span> == is_draw]</span><br><span class="line"></span><br><span class="line">draw_triangles_and_points(draw_points, triangles, <span class="string">&quot;Filtered&quot;</span>)</span><br><span class="line">draw_triangles_and_points(point_set, triangles, <span class="string">&quot;Original&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="InTriangleTest_12_0.png" alt="png"></p>
+<p><img src="InTriangleTest_12_1.png" alt="png"></p>
+
+	
+    <div class="copyright-box">
+		<div class="license-box">
+			<div class="license-header">
+				
+				<div class="license-title">
+					Convex Hull In Triangle Test
+				</div>
+				<div class="license-subTitle">https://cracknum.github.io/2025/06/01/Computational Geometry/InTriangleTest/index.html</div>
+			</div>
+			<div class="license-meta">
+				
+					<div class="license-meta-item">
+						<div>作者</div>
+						<div>
+							<a href="">
+								Lei Zhao
+							</a>
+						</div>
+					</div>
+				
+				
+					<div class="license-meta-item license-meta-date">
+					<div>发布于</div>
+					<div>2025年6月1日</div>
+					</div>
+				
+				
+				
+				
+					<div class="license-meta-item">
+					<div>许可协议</div>
+					<div>
+						
+						
+						
+							<a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+								<span class="hint--top hint--rounded" aria-label="BY - 署名">
+									BY - 署名
+								</span>
+							</a>
+						
+						
+					</div>
+					</div>
+				
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+    
+
+    
+
+    
+        
+        <script async reload>
+            fetch("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/tokyo-night-dark.css")
+                .then((response) => response.text())
+                .then((cssContent) => {
+                    const style = document.createElement("style");
+                    
+                        cssContent = cssContent
+                            .replace(".hljs-code,", "")
+                            .replaceAll("_", " ")
+                            .replaceAll("hljs-", "hljs .")
+                            .replaceAll(".hljs", " .highlight")
+                            .replaceAll(".built in", ".built_in")
+                            .replaceAll("title.", "");
+                        const figures = document.querySelectorAll("figure.highlight td.gutter");
+                        figures.forEach(figure=>{
+                            figure.classList.add("highlight");
+                        })
+                    
+                    style.innerHTML = cssContent;
+                    document.head.appendChild(style);
+                })
+                .catch((error) => {
+                    console.error("Error loading CSS:", error);
+                });
+        </script>
+    
+
+
+
+
+
+    <script reload>
+        var targets = document.querySelectorAll("figure.highlight, #article-content > pre:not(.highlight,.hljs)");
+        targets.forEach((block) => {
+            const copyBtn = document.createElement("button");
+            copyBtn.innerHTML = `<i class="fa fa-clone" aria-hidden="true"></i>`;
+            copyBtn.className = "code-copy";
+
+            
+                copyBtn.style.color = "#fff";
+            
+
+            copyBtn.addEventListener("click", () => {
+                const text = block.querySelector("td.code")?.textContent || block.querySelector("code")?.textContent;
+                navigator.clipboard.writeText(text).then(() => {
+                    copyBtn.innerHTML = "Copied!";
+                    setTimeout(() => {
+                        copyBtn.innerHTML = `<i class="fa fa-clone" aria-hidden="true"></i>`;
+                    }, 2000);
+                });
+            });
+            block.appendChild(copyBtn);
+        });
+    </script>
+
+
+
+
+<div class="post-guide">
+	<div class="item left">
+	
+		<a href="/2025/05/25/MITK/Mitk%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C%E5%92%8C%E6%B8%B2%E6%9F%93/">
+			<i class="fa fa-angle-left" aria-hidden="true"></i>
+			Mitk数据操作和渲染
+		</a>
+	
+	</div>
+	<div class="item right">
+		
+	</div>
+</div>
+
+
+
+
+	</div>
+
+	<div id="footer">
+	<div>
+		
+			
+			
+				©2025
+			
+			</span>
+			<a href="">
+				Lei Zhao
+			</a>
+		
+		
+			<span id="busuanzi_container_site_pv">
+				总访问量
+				<span id="vercount_value_page_pv"></span>
+			</span>
+			<span id="busuanzi_container_site_uv">
+				总访客数
+				<span id="vercount_value_site_pv"></span>
+			</span>
+		
+	</div>
+	 <div> Theme <a href="https://github.com/Exisi/hexo-theme-node-tree"	target="_blank">Node-Tree</a> Powered by <a href="https://hexo.io" target="_blank">Hexo</a> </div> 
+</div>
+	<button id="totop-toggle" class="toggle"><i class="fa fa-angle-double-up" aria-hidden="true"></i></button>
+
+<script async>
+    const topTopBtn = document.querySelector("#totop-toggle");
+	topTopBtn.addEventListener("click", () => {
+		window.scrollTo({ top: 0, behavior: "smooth" });
+	});
+</script>
+</body>
+</html>
