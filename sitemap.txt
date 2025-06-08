@@ -10,5 +10,5 @@ https://cracknum.github.io/
 https://cracknum.github.io/tags/%E5%87%B8%E5%8C%85/
 https://cracknum.github.io/tags/hexo/
 https://cracknum.github.io/categories/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/
-https://cracknum.github.io/categories/hexo-setting/
 https://cracknum.github.io/categories/Mitk/
+https://cracknum.github.io/categories/hexo-setting/
