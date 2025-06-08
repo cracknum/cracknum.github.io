@@ -1,8 +1,8 @@
+https://cracknum.github.io/2025/05/25/MITK/Mitk%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C%E5%92%8C%E6%B8%B2%E6%9F%93/
 https://cracknum.github.io/2025/05/25/Computational%20Geometry/Convex%20Hull/
 https://cracknum.github.io/2025/06/01/Computational%20Geometry/InTriangleTest/
 https://cracknum.github.io/about/index.html
 https://cracknum.github.io/2025/05/25/Others/hexo%20math%20renderer/
-https://cracknum.github.io/2025/05/25/MITK/Mitk%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C%E5%92%8C%E6%B8%B2%E6%9F%93/
 https://cracknum.github.io/2025/05/25/VTK/test/
 https://cracknum.github.io/tags/index.html
 https://cracknum.github.io/categories/index.html
@@ -12,3 +12,4 @@ https://cracknum.github.io/tags/%E5%87%B8%E5%8C%85/
 https://cracknum.github.io/tags/hexo/
 https://cracknum.github.io/categories/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/
 https://cracknum.github.io/categories/hexo-setting/
+https://cracknum.github.io/categories/Mitk/
